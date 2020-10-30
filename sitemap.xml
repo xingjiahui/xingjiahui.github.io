@@ -410,6 +410,13 @@
   </url>
   
   <url>
+    <loc>https://plushine.cn/tags/Chrome%E9%97%AA%E9%BB%91%E5%B1%8F/</loc>
+    <lastmod>2020-10-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://plushine.cn/tags/CD%E9%A9%B1%E5%8A%A8%E5%99%A8/</loc>
     <lastmod>2020-10-30</lastmod>
     <changefreq>daily</changefreq>
@@ -417,7 +424,7 @@
   </url>
   
   <url>
-    <loc>https://plushine.cn/tags/Chrome%E9%97%AA%E9%BB%91%E5%B1%8F/</loc>
+    <loc>https://plushine.cn/tags/python%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2020-10-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -445,20 +452,6 @@
   </url>
   
   <url>
-    <loc>https://plushine.cn/tags/%E7%94%A8%E6%88%B7/</loc>
-    <lastmod>2020-10-30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://plushine.cn/tags/%E7%94%A8%E6%88%B7%E7%BB%84/</loc>
-    <lastmod>2020-10-30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://plushine.cn/tags/Xshell/</loc>
     <lastmod>2020-10-30</lastmod>
     <changefreq>daily</changefreq>
@@ -473,7 +466,14 @@
   </url>
   
   <url>
-    <loc>https://plushine.cn/tags/python%E5%9F%BA%E7%A1%80/</loc>
+    <loc>https://plushine.cn/tags/%E7%94%A8%E6%88%B7/</loc>
+    <lastmod>2020-10-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://plushine.cn/tags/%E7%94%A8%E6%88%B7%E7%BB%84/</loc>
     <lastmod>2020-10-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -594,14 +594,14 @@
   </url>
   
   <url>
-    <loc>https://plushine.cn/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/linux/</loc>
+    <loc>https://plushine.cn/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/python/</loc>
     <lastmod>2020-10-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://plushine.cn/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/python/</loc>
+    <loc>https://plushine.cn/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/linux/</loc>
     <lastmod>2020-10-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Update | XJHui's Blog</title><meta name="keywords" content="PluShine,plushine,XJHui,xjhui"><meta name="author" content="PluShine"><meta name="copyright" content="PluShine"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="v5.3.15 2020-10-29 发布博客 云班课作业互评(python3+selenium)  v5.3.14 2020-10-28 修改部分友链  v5.3.13 2020-10-27 修复社交图标不显示的bugs  v5.3.12 2020-10-25 添加页面 课程推荐  v5.3.11 2020-10-24 删除单向、无法访问、域名到期友链 添加友链  v5.3.10 2020-10">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Update | XJHui's Blog</title><meta name="keywords" content="PluShine,plushine,XJHui,xjhui"><meta name="author" content="PluShine"><meta name="copyright" content="PluShine"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="v6.0.0 2020-10-30 Hexo版本更新至 v5.2.0 主题版本更新至 v3.3.0  -# v5.3.15 2020-10-29  发布博客 云班课作业互评(python3+selenium)  v5.3.14 2020-10-28 修改部分友链  v5.3.13 2020-10-27 修复社交图标不显示的bugs  v5.3.12 2020-10-25 添加页面 课程推荐  v5">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Update">
 <meta property="og:url" content="https://plushine.cn/update/index.html">
 <meta property="og:site_name" content="XJHui&#39;s Blog">
-<meta property="og:description" content="v5.3.15 2020-10-29 发布博客 云班课作业互评(python3+selenium)  v5.3.14 2020-10-28 修改部分友链  v5.3.13 2020-10-27 修复社交图标不显示的bugs  v5.3.12 2020-10-25 添加页面 课程推荐  v5.3.11 2020-10-24 删除单向、无法访问、域名到期友链 添加友链  v5.3.10 2020-10">
+<meta property="og:description" content="v6.0.0 2020-10-30 Hexo版本更新至 v5.2.0 主题版本更新至 v3.3.0  -# v5.3.15 2020-10-29  发布博客 云班课作业互评(python3+selenium)  v5.3.14 2020-10-28 修改部分友链  v5.3.13 2020-10-27 修复社交图标不显示的bugs  v5.3.12 2020-10-25 添加页面 课程推荐  v5">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/xingjiahui/CDN/post.jpg">
 <meta property="article:published_time" content="2020-04-25T03:54:25.000Z">
-<meta property="article:modified_time" content="2020-10-30T01:51:22.297Z">
+<meta property="article:modified_time" content="2020-10-30T03:15:30.039Z">
 <meta property="article:author" content="PluShine">
 <meta property="article:tag" content="PluShine,plushine,XJHui,xjhui">
 <meta name="twitter:card" content="summary">
@@ -33,7 +33,6 @@ gtag('config', 'UA-162326632-1');
 })();
 </script><script>var GLOBAL_CONFIG = { 
   root: '/',
-  hexoversion: '5.2.0',
   algolia: undefined,
   localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
   translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
@@ -99,8 +98,8 @@ var saveToLocal = {
   isPost: false,
   isHome: false,
   isHighlightShrink: false,
-  isSidebar: false,
-  postUpdate: '2020-10-30 09:51:22'
+  isToc: false,
+  postUpdate: '2020-10-30 11:15:30'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -113,55 +112,65 @@ var saveToLocal = {
   #post-meta time {
     display: inline !important
   }
-</style></noscript><script>var activateDarkMode = function () {
-  document.documentElement.setAttribute('data-theme', 'dark')
-  if (document.querySelector('meta[name="theme-color"]') !== null) {
-    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-  }
-}
-var activateLightMode = function () {
-  document.documentElement.setAttribute('data-theme', 'light')
-  if (document.querySelector('meta[name="theme-color"]') !== null) {
-    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-  }
-}
-
-var autoChangeMode = 'true'
-var t = saveToLocal.get('theme')
-if (autoChangeMode === '1') {
-  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
-  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
-  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
-  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
-
-  if (t === undefined) {
-    if (isLightMode) activateLightMode()
-    else if (isDarkMode) activateDarkMode()
-    else if (isNotSpecified || hasNoSupport) {
-      var now = new Date()
-      var hour = now.getHours()
-      var isNight = hour <= 6 || hour >= 18
-      isNight ? activateDarkMode() : activateLightMode()
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
     }
-    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
-      if (saveToLocal.get('theme') === undefined) {
-        e.matches ? activateDarkMode() : activateLightMode()
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'true'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
       }
-    })
-  } else if (t === 'light') activateLightMode()
-  else activateDarkMode()
-} else if (autoChangeMode === '2') {
-  now = new Date()
-  hour = now.getHours()
-  isNight = hour <= 6 || hour >= 18
-  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
-  else if (t === 'light') activateLightMode()
-  else activateDarkMode()
-} else {
-  if (t === 'dark') activateDarkMode()
-  else if (t === 'light') activateLightMode()
-}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xingjiahui/beautiful@master/CSS/alicon.css"><link rel="stylesheet" href="https://at.alicdn.com/t/font_2091506_fi2onjr26w.css"><link rel="stylesheet" href="https://at.alicdn.com/t/font_2160412_yzks259p1vd.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xingjiahui/beautiful@master/CSS/custom.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/buttons.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/footer.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/plugins.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xingjiahui/modify/pace/themes/pink/pace-theme-flash.min.css"><meta name="referrer" content="no-referrer-when-downgrade"/><meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="XJHui's Blog" type="application/atom+xml">
-</head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/touxiang.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">32</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">23</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">16</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-home3"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-friend"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-guanyu"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/donate/"><i class="fa-fw iconfont icon-dashang"></i><span> 支持</span></a></div><div class="menus_item"><a class="site-page" href="/update/"><i class="fa-fw iconfont icon-gengxin"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-kongzhitai"></i><span> 控制台</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/log/"><i class="fa-fw iconfont icon-shuoshuo1"></i><span> 说说页面</span></a></li><li><a class="site-page" href="/video/"><i class="fa-fw iconfont icon-shipinkecheng"></i><span> 课程推荐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-gongneng1"></i><span> 功能板</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://img.plushine.cn"><i class="fa-fw iconfont icon-xiangce11-copy"></i><span> 在线图床</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-lianxi"></i><span> 联系我</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/messageboard/"><i class="fa-fw iconfont icon-liuyan"></i><span> 留言板</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="http://sighttp.qq.com/authd?IDKEY=aed3a79d6ba65c6d83a35402189ab6faeeb887890818809d"><i class="fa-fw iconfont icon-qq"></i><span> 腾讯QQ</span></a></li></ul></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><header class="not-index-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/05/25/40e2c24229630e3ebfebe24ff1dbca93.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">XJHui's Blog</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-home3"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-friend"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-guanyu"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/donate/"><i class="fa-fw iconfont icon-dashang"></i><span> 支持</span></a></div><div class="menus_item"><a class="site-page" href="/update/"><i class="fa-fw iconfont icon-gengxin"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-kongzhitai"></i><span> 控制台</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/log/"><i class="fa-fw iconfont icon-shuoshuo1"></i><span> 说说页面</span></a></li><li><a class="site-page" href="/video/"><i class="fa-fw iconfont icon-shipinkecheng"></i><span> 课程推荐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-gongneng1"></i><span> 功能板</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://img.plushine.cn"><i class="fa-fw iconfont icon-xiangce11-copy"></i><span> 在线图床</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-lianxi"></i><span> 联系我</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/messageboard/"><i class="fa-fw iconfont icon-liuyan"></i><span> 留言板</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="http://sighttp.qq.com/authd?IDKEY=aed3a79d6ba65c6d83a35402189ab6faeeb887890818809d"><i class="fa-fw iconfont icon-qq"></i><span> 腾讯QQ</span></a></li></ul></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="page-site-info"><h1 id="site-title">Update</h1></div></header><main class="layout_page hide-aside" id="content-inner"><div id="page"><div id="article-container"><h1 id="v5-3-15-2020-10-29"><a href="#v5-3-15-2020-10-29" class="headerlink" title="v5.3.15 2020-10-29"></a>v5.3.15 2020-10-29</h1><ul>
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xingjiahui/beautiful@master/CSS/alicon.css"><link rel="stylesheet" href="https://at.alicdn.com/t/font_2091506_fi2onjr26w.css"><link rel="stylesheet" href="https://at.alicdn.com/t/font_2160412_yzks259p1vd.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xingjiahui/beautiful@master/CSS/custom.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/buttons.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/footer.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/plugins.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xingjiahui/modify/pace/themes/pink/pace-theme-flash.min.css"><meta name="referrer" content="no-referrer-when-downgrade"/><meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="XJHui's Blog" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/touxiang.jpg" onerror="onerror=null;src='https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/10/30/510e2c828ef28669ccde919409a1835e.png'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">32</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">23</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">16</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-home3"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-friend"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-guanyu"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/donate/"><i class="fa-fw iconfont icon-dashang"></i><span> 支持</span></a></div><div class="menus_item"><a class="site-page" href="/update/"><i class="fa-fw iconfont icon-gengxin"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-kongzhitai"></i><span> 控制台</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/log/"><i class="fa-fw iconfont icon-shuoshuo1"></i><span> 说说页面</span></a></li><li><a class="site-page" href="/video/"><i class="fa-fw iconfont icon-shipinkecheng"></i><span> 课程推荐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-gongneng1"></i><span> 功能板</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://img.plushine.cn"><i class="fa-fw iconfont icon-xiangce11-copy"></i><span> 在线图床</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-lianxi"></i><span> 联系我</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/messageboard/"><i class="fa-fw iconfont icon-liuyan"></i><span> 留言板</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="http://sighttp.qq.com/authd?IDKEY=aed3a79d6ba65c6d83a35402189ab6faeeb887890818809d"><i class="fa-fw iconfont icon-qq"></i><span> 腾讯QQ</span></a></li></ul></div></div></div></div><div id="body-wrap"><header class="not-index-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/05/25/40e2c24229630e3ebfebe24ff1dbca93.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">XJHui's Blog</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-home3"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-friend"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-guanyu"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/donate/"><i class="fa-fw iconfont icon-dashang"></i><span> 支持</span></a></div><div class="menus_item"><a class="site-page" href="/update/"><i class="fa-fw iconfont icon-gengxin"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-kongzhitai"></i><span> 控制台</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/log/"><i class="fa-fw iconfont icon-shuoshuo1"></i><span> 说说页面</span></a></li><li><a class="site-page" href="/video/"><i class="fa-fw iconfont icon-shipinkecheng"></i><span> 课程推荐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-gongneng1"></i><span> 功能板</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://img.plushine.cn"><i class="fa-fw iconfont icon-xiangce11-copy"></i><span> 在线图床</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-lianxi"></i><span> 联系我</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/messageboard/"><i class="fa-fw iconfont icon-liuyan"></i><span> 留言板</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="http://sighttp.qq.com/authd?IDKEY=aed3a79d6ba65c6d83a35402189ab6faeeb887890818809d"><i class="fa-fw iconfont icon-qq"></i><span> 腾讯QQ</span></a></li></ul></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="page-site-info"><h1 id="site-title">Update</h1></div></header><main class="layout hide-aside" id="content-inner"><div id="page"><div id="article-container"><h1 id="v6-0-0-2020-10-30"><a href="#v6-0-0-2020-10-30" class="headerlink" title="v6.0.0 2020-10-30"></a>v6.0.0 2020-10-30</h1><ul>
+<li>Hexo版本更新至 <code>v5.2.0</code></li>
+<li>主题版本更新至 <code>v3.3.0</code></li>
+</ul>
+<p>-# v5.3.15 2020-10-29</p>
+<ul>
 <li>发布博客 <code>云班课作业互评(python3+selenium)</code></li>
 </ul>
 <h1 id="v5-3-14-2020-10-28"><a href="#v5-3-14-2020-10-28" class="headerlink" title="v5.3.14 2020-10-28"></a>v5.3.14 2020-10-28</h1><ul>
@@ -749,8 +758,8 @@ if (autoChangeMode === '1') {
 <li>通过CodeSheep初识Hexo框架</li>
 <li>通过CSDN初识Butterfly主题</li>
 </ul>
-</div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 By PluShine</div><div class="framework-info"><span>强力驱动🌌 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>博客主题🍀 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://su.baidu.com/"><img src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/06/26/6a2bc771a2ead2434fa80740eaa22924.png" align="absmiddle" width="70px" height="20px"></a><span>&nbsp;&&nbsp;&nbsp;</span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.jsdelivr.com/"><img src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/06/26/7b059f8e9de1a268fdeb80109a192925.png" align="absmiddle" width="70px" height="20px"></a></div><div class="icp"><a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.beian.miit.gov.cn/"><img class="icp-icon" src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/06/06/0bcff08ca63f75f26d0f0db7290665fc.png"/><span>鲁ICP备 20009899号</span></a></div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
- <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+</div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 By PluShine</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://su.baidu.com/"><img src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/06/26/6a2bc771a2ead2434fa80740eaa22924.png" align="absmiddle" width="70px" height="20px"></a><span>&nbsp;&&nbsp;&nbsp;</span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.jsdelivr.com/"><img src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/06/26/7b059f8e9de1a268fdeb80109a192925.png" align="absmiddle" width="70px" height="20px"></a></div><div class="icp"><a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.beian.miit.gov.cn/"><img class="icp-icon" src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/06/06/0bcff08ca63f75f26d0f0db7290665fc.png" alt="ICP"/><span>鲁ICP备 20009899号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
   if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
   else {
     $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
@@ -769,7 +778,6 @@ function panguInit () {
 
 document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script no-destroy src="https://player.lmih.cn/player/js/player.js" id="myhk" key="158744445072"></script><script no-destroy src="https://cdn.jsdelivr.net/gh/xingjiahui/modify/pace/pace.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
   'title',
-  'meta[name=description]',
   '#config_change',
   '#body-wrap',
   '#rightside-config-hide',
@@ -782,7 +790,7 @@ if (false) {
 }
 
 var pjax = new Pjax({
-  elements: 'a:not([target="_blank"])',
+  elements: 'a:not([target="_blank"]):not([href="/log/"])',
   selectors: pjaxSelectors,
   cacheBust: false,
   analytics: true,
