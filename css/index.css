@@ -2157,6 +2157,7 @@ blockquote footer cite:before {
   height: 90px;
   border-radius: 8px;
   line-height: 17px;
+  border: 1px dashed #2ba1d1;
   -webkit-transform: translateZ(0);
 }
 @media screen and (max-width: 1024px) {
