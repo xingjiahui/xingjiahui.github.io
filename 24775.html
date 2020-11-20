@@ -1,0 +1,1567 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Git中级教程 | XJHui's Blog</title><meta name="keywords" content="git"><meta name="author" content="PluShine"><meta name="copyright" content="PluShine"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="本文章最初发布在 XJHui’s Blog，未经允许，任何人禁止转载！ 注意：最新修改版本已发布在 这里，点击前往查看！ 关于笔记 视频地址：Git（中级）教程（12h深入掌握git）(28p) 学前基础： linux github   学后技能： git底层、高层命令 git分支、存储、后悔药、标签 git团队协作、Pull Request    版本控制集中式(svn) 原理：服务器存放项目的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git中级教程">
+<meta property="og:url" content="https://plushine.cn/24775.html">
+<meta property="og:site_name" content="XJHui&#39;s Blog">
+<meta property="og:description" content="本文章最初发布在 XJHui’s Blog，未经允许，任何人禁止转载！ 注意：最新修改版本已发布在 这里，点击前往查看！ 关于笔记 视频地址：Git（中级）教程（12h深入掌握git）(28p) 学前基础： linux github   学后技能： git底层、高层命令 git分支、存储、后悔药、标签 git团队协作、Pull Request    版本控制集中式(svn) 原理：服务器存放项目的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20s/0827707c207ced480cd9f1c47403f921.png">
+<meta property="article:published_time" content="2020-10-26T05:10:43.000Z">
+<meta property="article:modified_time" content="2020-11-20T07:13:10.734Z">
+<meta property="article:author" content="PluShine">
+<meta property="article:tag" content="git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20s/0827707c207ced480cd9f1c47403f921.png"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/05/25/favicon.ico"><link rel="canonical" href="https://plushine.cn/24775"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin="crossorigin"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//pingjs.qq.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="Yp0AsOhfru"/><meta name="360-site-verification" content="9346f3a82cd6e2ac3622b3b380341276"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46d8572351f7699bce77c44868dae192";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-162326632-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-162326632-1');
+</script><script>var _mtac = {};
+(function() {
+    var mta = document.createElement("script");
+    mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
+    mta.setAttribute("name", "MTAH5");
+    mta.setAttribute("sid", "66539107");
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(mta, s);
+})();
+</script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: {"limitDay":60,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"rgb(142,140,216)","bgDark":"#2d3035","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-11-20 15:13:10'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'true'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xingjiahui/beautiful@master/CSS/alicon.css"><link rel="stylesheet" href="https://at.alicdn.com/t/font_2091506_hzyk6ifjte9.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xingjiahui/beautiful@master/CSS/custom.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/buttons.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/footer.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/plugins.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xingjiahui/modify/pace/themes/pink/pace-theme-flash.min.css"><meta name="referrer" content="no-referrer-when-downgrade"/><meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="XJHui's Blog" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/touxiang.jpg" onerror="onerror=null;src='https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/10/30/510e2c828ef28669ccde919409a1835e.png'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">33</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-home3"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-friend"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-guanyu"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/donate/"><i class="fa-fw iconfont icon-dashang"></i><span> 支持</span></a></div><div class="menus_item"><a class="site-page" href="/update/"><i class="fa-fw iconfont icon-gengxin"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-kongzhitai"></i><span> 控制台</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/log/"><i class="fa-fw iconfont icon-shuoshuo1"></i><span> 说说页面</span></a></li><li><a class="site-page" href="/video/"><i class="fa-fw iconfont icon-shipinkecheng"></i><span> 课程推荐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-gongneng1"></i><span> 功能板</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://img.plushine.cn"><i class="fa-fw iconfont icon-xiangce11-copy"></i><span> 在线图床</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xingjiahui/Weather-Push"><i class="fa-fw iconfont icon-tianqi"></i><span> 天气推送</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/319np666/Yunbanke-Auto"><i class="fa-fw iconfont icon-zuoye"></i><span> 作业互评</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-lianxi"></i><span> 联系我</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/messageboard/"><i class="fa-fw iconfont icon-liuyanban1"></i><span> 留言板</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="http://sighttp.qq.com/authd?IDKEY=aed3a79d6ba65c6d83a35402189ab6faeeb887890818809d"><i class="fa-fw iconfont icon-QQ"></i><span> 腾讯QQ</span></a></li></ul></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20s/0827707c207ced480cd9f1c47403f921.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">XJHui's Blog</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-home3"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-friend"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-guanyu"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/donate/"><i class="fa-fw iconfont icon-dashang"></i><span> 支持</span></a></div><div class="menus_item"><a class="site-page" href="/update/"><i class="fa-fw iconfont icon-gengxin"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-kongzhitai"></i><span> 控制台</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/log/"><i class="fa-fw iconfont icon-shuoshuo1"></i><span> 说说页面</span></a></li><li><a class="site-page" href="/video/"><i class="fa-fw iconfont icon-shipinkecheng"></i><span> 课程推荐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-gongneng1"></i><span> 功能板</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://img.plushine.cn"><i class="fa-fw iconfont icon-xiangce11-copy"></i><span> 在线图床</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xingjiahui/Weather-Push"><i class="fa-fw iconfont icon-tianqi"></i><span> 天气推送</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/319np666/Yunbanke-Auto"><i class="fa-fw iconfont icon-zuoye"></i><span> 作业互评</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-lianxi"></i><span> 联系我</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/messageboard/"><i class="fa-fw iconfont icon-liuyanban1"></i><span> 留言板</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="http://sighttp.qq.com/authd?IDKEY=aed3a79d6ba65c6d83a35402189ab6faeeb887890818809d"><i class="fa-fw iconfont icon-QQ"></i><span> 腾讯QQ</span></a></li></ul></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">Git中级教程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-10-26T05:10:43.000Z" title="发表于 2020-10-26 13:10:43">2020-10-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-11-20T07:13:10.734Z" title="更新于 2020-11-20 15:13:10">2020-11-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/git/">git</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>27分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/24775.html#post-comment" itemprop="discussionUrl"><span class="valine-comment-count comment-count" data-xid="/24775.html" itemprop="commentCount"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>本文章最初发布在 <a href="https://plushine.cn">XJHui’s Blog</a>，未经允许，任何人禁止转载！</p>
+<p><font color="red" style="font-weight:700">注意：</font>最新修改版本已发布在 <a href="https://plushine.cn/24775.html">这里</a>，点击前往查看！</p>
+<h1 id="关于笔记"><a href="#关于笔记" class="headerlink" title="关于笔记"></a>关于笔记</h1><ol>
+<li>视频地址：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.bilibili.com/video/BV15J411973T?p=1">Git（中级）教程（12h深入掌握git）(28p)</a></li>
+<li>学前基础：<ul>
+<li>linux</li>
+<li>github</li>
+</ul>
+</li>
+<li>学后技能：<ul>
+<li>git底层、高层命令</li>
+<li>git分支、存储、后悔药、标签</li>
+<li>git团队协作、Pull Request</li>
+</ul>
+</li>
+</ol>
+<h1 id="版本控制"><a href="#版本控制" class="headerlink" title="版本控制"></a>版本控制</h1><h2 id="集中式-svn"><a href="#集中式-svn" class="headerlink" title="集中式(svn)"></a>集中式(svn)</h2><ol>
+<li><p>原理：服务器存放项目的所有版本，工作时从服务器下载项目最新版本，工作完成后将代码提交到服务器</p>
+</li>
+<li><p>原理图：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/10/27/b206f8c4bdb2d6f5dbd2b623fe120e69.png" width="70%"/>
+
+</li>
+</ol>
+<h2 id="分布式-git"><a href="#分布式-git" class="headerlink" title="分布式(git)"></a>分布式(git)</h2><ol>
+<li><p>原理：每台电脑中都存放了项目的所有版本，即使服务器故障也不会影响工作更不会将丢失项目</p>
+</li>
+<li><p>原理图：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/10/27/ec58da5fa6ff1b06991d7cb1a8a6b2e2.png" width="70%"/>
+
+</li>
+</ol>
+<h2 id="差异比较"><a href="#差异比较" class="headerlink" title="差异比较"></a>差异比较</h2><ol>
+<li><p>存储方式：svn存储版本差异，git存储所有版本</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/19s/60e5fac332de40bd7555eef38f9efdeb.png" width="70%"/>
+
+<p>注意：git是先压缩后存储，尽管存储占用比svn大，但不会大太多</p>
+</li>
+<li><p>安全性：</p>
+<ul>
+<li>svn：工作时只会下载项目最新版本，如果服务器存储故障，就无法从员工电脑恢复项目所有版本</li>
+<li>git：每位员工电脑上都有项目的所有版本，即使服务器存储故障，任意一位员工都能恢复整个项目</li>
+</ul>
+</li>
+<li><p>版本回退速度：</p>
+<ul>
+<li>svn：存储的是版本差异，每回退一个版本都需要打一次补丁，导致回退速度慢</li>
+<li>git：存储所有版本，只要找到该版本对应的提交对象，就可直接回退到该版本</li>
+</ul>
+</li>
+<li><p>服务器故障时：</p>
+<ul>
+<li>svn：新写的代码不满意，不能回退到初始版本</li>
+<li>git：本地操作不受服务器限制，可任意提交、回退</li>
+</ul>
+</li>
+<li><p>总结：</p>
+<ul>
+<li>svn：存储占用小</li>
+<li>git：安全、高效</li>
+</ul>
+</li>
+</ol>
+<h1 id="git"><a href="#git" class="headerlink" title="git"></a>git</h1><h2 id="简史"><a href="#简史" class="headerlink" title="简史"></a>简史</h2><ol>
+<li><p>创始人：Linus Benedict Torvalds（林纳斯·托瓦兹）</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20/6d276f08504285bb2bb5cd2296de4179.png" width="70%"/>
+</li>
+<li><p>git起源：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/10/28/febded7eba7d7f763042f3143a6e92b6.png" width="70%"/>
+
+</li>
+</ol>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
+<li><p>下载访问： <a target="_blank" rel="noopener external nofollow noreferrer" href="https://xjhui.lanzoux.com/iap7Odtezyf，感谢：蓝奏云">https://xjhui.lanzoux.com/iap7Odtezyf，感谢：蓝奏云</a></p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/10/28/1de7c1722930944648b04fed1d67d29e.png" width="70%"/>
+
+<p>注意：如果与您的电脑版本不匹配，请访问：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://git-scm.com/download/win">https://git-scm.com/download/win</a> 下载指定版本</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/10/28/567e1ec43892b8c7a24665f01c8b16a1.png" width="70%"/>
+</li>
+<li><p>安装：一路next</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20/61641f7278d1036c94e023f806b8eee3.png" width="50%"/>
+</li>
+<li><p>验证安装：桌面右键，出现框选内容代表安装成功</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/10/28/dcedc988921b8a572b344e2a5d946f08.png" width="70%"/>
+
+</li>
+</ol>
+<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><ol>
+<li><p>命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init  # 初始化一个git仓库</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>案例：在/workspace下初始化一个git仓库</p>
+<ul>
+<li><p>文件夹内右键选择 <code>Git Bash Here</code>：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/02/b598c9b0cbd0bdd9880f5f4920d43298.png" width="70%"/>
+</li>
+<li><p>输入指令： <code>git init</code>：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/02/17dca36e4c1fb453e27dbf9ca1ca8fb2.png" width="70%"/>
+
+<p>注意：.git为隐藏文件，若不显示请点击 <code>查看</code> -&gt; 勾选 <code>隐藏的项目</code> </p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/19s/07575091edd6adf64848a7cf01f462d5.png" width="70%"/>
+</li>
+</ul>
+</li>
+<li><p>git文件（.git文件夹内）：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/02/449bac2bd15fb3b6b10ca0d33dc815e6.png" width="70%"/>
+
+<p>文件功能：</p>
+<ul>
+<li>hooks：存放钩子文件（提交代码前、后要做的事，例如检查代码规范）</li>
+<li>info：说明哪些文件不需要管理</li>
+<li>objects：对象库（类似对象库，存放git对象、树对象、提交对象）</li>
+<li>refs、HEAD：分支相关内容</li>
+<li>description：仓库描述信息</li>
+</ul>
+</li>
+</ol>
+<h2 id="git区域"><a href="#git区域" class="headerlink" title="git区域"></a>git区域</h2><ol>
+<li><p>三个区域：</p>
+<ul>
+<li>工作区：就是你在电脑里能看到的目录</li>
+<li>暂存区：一般存放在 .git 目录下的 index 文件（.git/index）中，所以我们有时也把暂存区叫作索引（index）</li>
+<li>版本库：工作区有一个隐藏目录.git</li>
+</ul>
+<p>注意：暂存区是存在于版本库中的，而版本库是存在于工作区的</p>
+</li>
+<li><p>关系图：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/03/085586a0f984f0f70d5cf16e4f0ea97e.png" width="70%"/>
+
+</li>
+</ol>
+<h1 id="git底层概念"><a href="#git底层概念" class="headerlink" title="git底层概念"></a>git底层概念</h1><blockquote>
+<p>底层概念代码不需要掌握，但一定得懂</p>
+</blockquote>
+<h2 id="git对象"><a href="#git对象" class="headerlink" title="git对象"></a>git对象</h2><ol>
+<li><p>定义：通过 <code>git hash-object -w</code> 命令在objects目录下生成的对象都是git对象</p>
+</li>
+<li><p>生成git对象的方法：</p>
+<ul>
+<li><p>方法一：将字符串直接写入对象库</p>
+<ul>
+<li><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#39;test content&#39; | git hash-object -w --stdin</span><br></pre></td></tr></table></figure>
+
+<p>参数功能：</p>
+<ul>
+<li>-w：返回hash值并写入对象库，若不添加该参数则只返回hash值</li>
+<li>–stdin：标准输入流读取字符串，不可省略</li>
+</ul>
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/03/34afcb75d2f8dfb6edd9038a5c110f9c.png" width="70%"/>
+</li>
+<li><p>查看value（字符串）值：</p>
+<ul>
+<li><p><code>cat</code> 命令：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/03/9500df6a1dd9de6a9a4039cb7e6e7f24.png" width="70%"/>
+</li>
+<li><p><code>git cat-file -p</code>  命令：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/03/cfb0deb5135afdb665e87c8177ad7baa.png" width="70%"/>
+</li>
+<li><p><code>git cat-file -t</code> 命令可查看git对象的类型：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/03/ca6344aab567994bab6b249892ad5feb.png" width="70%"/>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>方法二：将文本文件中的字符串写入对象库</p>
+<ul>
+<li><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git hash-object -w 文件名</span><br></pre></td></tr></table></figure>
+
+<p>参数功能：</p>
+<ul>
+<li>-w：返回hash值并写入对象库，若不添加该参数则只返回hash值</li>
+<li>文件名：包含文本内容的文件，不可省略</li>
+</ul>
+</li>
+<li><p>案例1：使用 <code>git hash-object</code> 命令将test.txt文件（v1版本）内容写入到对象库</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/03/646934e501849867c8d9b2520ae93f00.png" width="70%"/>
+
+<p>命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git hash-object -w test.txt</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/03/48599e1ebecd03007278fa42abf3e289.png" width="70%"/>
+</li>
+<li><p>案例2：修改test.txt文件（v2版本），并再次写入对象库</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/03/e9a5f9f8b7a2079bb905bc7973daceb9.png" width="70%"/>
+
+<p>命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git hash-object -w test.txt</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/03/0f7499991ea7c0b287d2d8091a7e5afa.png" width="70%"/>
+
+<p>使用 <code>find .git/objects/ -type f</code> 命令查看所有git对象：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/03/e1e8be1b37bdb00456433fbaf9763e7b.png" width="70%"/>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>git对象总结：git对象仅能存储文件的内容，对文件名称的存储却无能为力</p>
+</li>
+</ol>
+<h2 id="树对象"><a href="#树对象" class="headerlink" title="树对象"></a>树对象</h2><ol>
+<li><p>定义：解决git对象无法存储文件名称的问题，创建树对象需要先将git对象放入暂存区</p>
+</li>
+<li><p>将git对象放入暂存区：</p>
+<ul>
+<li><p>放入前查看缓存区内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git ls-files -s</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20s/b53fb9df77a4314d4959c4106be4394f.png" width="70%"/>
+</li>
+<li><p>将git对象放入暂存区：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git update-index --add --cacheinfo 100644 a0423896973644771497bdc03eb99d5281615b51 test.txt</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/03/ad924c58a7b8e91cf5d4a2241f309eb5.png" width="70%"/>
+
+<p>参数解释：</p>
+<ul>
+<li>–add：文件首次加入暂存区时需要添加该参数</li>
+<li>–cacheinfo：要添加的git对象位于git对象库中，而不是位于当前目录下</li>
+<li>文件类型：100644（ 普通文件）、100755（可执行文件）、120000（符号链接）</li>
+</ul>
+</li>
+<li><p>放入后再次查看缓存区内容：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/03/60fcd663b88168136eb2676dc15cc777.png" width="70%"/>
+</li>
+</ul>
+</li>
+<li><p>生成树对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git write-tree</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20s/6ed644ddc30ac01b8638e8e8154c6001.png" width="70%"/>
+
+<p>查看树对象类型：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/03/46ee0fba3cccb8fa5bafd468e9538033.png" width="70%"/>
+
+<p>注意：树对象也会被存储到objects目录下：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/03/5fbbd6af63049e462c60a7b27a4ebd61.png" width="70%"/>
+
+<p>git、树对象差异：git对象代表文件的一次次版本，树对象代表项目的一次次版本</p>
+</li>
+<li><p>树对象的不足：</p>
+<ul>
+<li>objects文件中放置了git对象和树对象，很难区分开来</li>
+<li>有git、树对象但不知道提交人、提交时间、版本差异</li>
+</ul>
+</li>
+</ol>
+<h2 id="提交对象"><a href="#提交对象" class="headerlink" title="提交对象"></a>提交对象</h2><img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20s/0c3f5b7ac1901b2155c48ee50da78d25.png" width="50%"/>
+
+<ol>
+<li><p>概念：</p>
+<ul>
+<li>创建树对象后就要创建一个提交对象，用来存储该树对象的具体信息（提交人、时间、注释等信息）</li>
+<li>每个提交对象分别指向一个树对象和一个父提交对象（第一个提交对象仅指向一个树对象）</li>
+</ul>
+</li>
+<li><p>创建提交对象：</p>
+<ul>
+<li><p>创建第一个提交对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#39;注释&#39; | git commit-tree 树对象</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/03/30ea6bdbbe14dd85211679c1a5ba1c41.png" width="70%"/>
+
+<p>注意：第一个提交对象不需要指向父提交对象，但其他提交对象必须指向父提交对象</p>
+</li>
+<li><p>创建其它提交对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#39;注释&#39; | git commit-tree 树对象 -p 父提交对象</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/03/9740faa72dff75a4235c671c4fdd9a9f.png" width="70%"/>
+
+<p>查看提交对象内容：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20s/e350d2d85d6ec73cd3d6241f420567b8.png" width="70%"/>
+
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="命令总结"><a href="#命令总结" class="headerlink" title="命令总结"></a>命令总结</h2><blockquote>
+<p>命令中所有对象（git、树、提交对象）都要用对应hash值代替</p>
+</blockquote>
+<ol>
+<li>git init：初始化git仓库</li>
+<li>生成git对象：<ul>
+<li>echo “字符串” | git hash-object -w –stdin：将字符串写入对象库</li>
+<li>git hash-object -w 文件名：将文件内容写入对象库</li>
+</ul>
+</li>
+<li>生成树对象：<ul>
+<li>git update-index –add –cacheinfo 文件类型 git对象：将git对象存入暂存区</li>
+<li>git write-tree：生成树对象</li>
+</ul>
+</li>
+<li>生成提交对象：<ul>
+<li>echo “注释” | git commit-tree 树对象：生成第一个提交对象</li>
+<li>echo “注释” | git commit-tree 树对象 -p 父提交对象：生成其它提交对象</li>
+</ul>
+</li>
+<li>查看对象信息：<ul>
+<li>git cat-file -t 对象：查看对象类型</li>
+<li>git cat-file -p 对象：查看对象内容</li>
+<li>git ls-file -s：查看暂存区内容</li>
+<li>find .git/objects/ -type f：查看对象库中的所有对象</li>
+</ul>
+</li>
+</ol>
+<h1 id="git高层命令"><a href="#git高层命令" class="headerlink" title="git高层命令"></a>git高层命令</h1><h2 id="最基本流程"><a href="#最基本流程" class="headerlink" title="最基本流程"></a>最基本流程</h2><ol>
+<li><p>git init：初始化git仓库</p>
+</li>
+<li><p>git add ./：给所有文件生成git对象并添加到暂存区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git hash-object -w 文件名  # 等同于该命令被执行n次（n&#x3D;文件数目）</span><br><span class="line">git update-index --add --cacheinfo 文件类型 git对象</span><br></pre></td></tr></table></figure>
+
+<p>注意：暂存区在版本库中，所以执行git add命令后git对象先进入版本库再进去暂存区</p>
+</li>
+<li><p>git commit -m “提交备注”：生成树对象和提交对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git write-tree  # 生成树对象</span><br><span class="line">echo &quot;备注&quot; | git commit-tree 树对象 -p 父提交对象  # 生成提交对象</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="查看文件"><a href="#查看文件" class="headerlink" title="查看文件"></a>查看文件</h2><ol>
+<li><p>文件状态：未跟踪、已跟踪（已暂存、已提交、已修改）</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/11/37250eb2ea47e07f74bf6b14e269df17.png" width="70%"/>
+</li>
+<li><p>git status</p>
+<blockquote>
+<p>查看文件状态（未跟踪、已跟踪（已暂存，已提交，已修改））</p>
+</blockquote>
+<ul>
+<li><p>查看未跟踪文件的状态：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;hello world!&quot; &gt; laofu.txt</span><br><span class="line">git status  # 查看文件状态</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/11/3ab95e072629a18a33b51414234a07a0.png" width="70%"/>
+
+<p>注意：新建的文件为未跟踪状态</p>
+</li>
+<li><p>查看已跟踪文件状态</p>
+<ul>
+<li><p>已暂存：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add laofu.txt  # 将文件放入暂存区，add后也可跟.&#x2F;或文件夹</span><br><span class="line">git status  # 查看文件状态</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/11/052a17cb6b69af9a4982e74cba076b51.png" width="70%"/>
+</li>
+<li><p>已提交：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;提交注释&quot;  # 将暂存区文件提交到版本库</span><br><span class="line">git status  # 查看文件状态</span><br></pre></td></tr></table></figure>
+
+<p> 运行结果：</p>
+ <img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/11/87f02482cbb4f87671ce492b831e32ac.png" width="70%"/>
+
+<p> 注意：</p>
+<ul>
+<li><p>如果注释内容过多，可以使用git commit 命令在文件中键入注释：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/11/1d2f7f56dd7fbf98749b8659ce183d0d.png" width="70%"/>
+</li>
+<li><p>对已跟踪文件，使用git commit命令时添加参数 -a，可跳过git add命令，直接提交到版本库</p>
+</li>
+</ul>
+</li>
+<li><p>已修改</p>
+<ul>
+<li><p>查看已提交的文件修改后状态：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim laofu.txt  # 修改已提交文件的内容</span><br><span class="line">git status  # 查看文件状态</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/11/7edeaefc73b1ebe7535f4adad4183ec6.png" width="70%"/>
+
+<p>注意：虽然改文件未被暂存，但已被跟踪，可以直接使用 git commit -m 命令提交到版本库</p>
+</li>
+<li><p>查看已暂存的文件修改后的状态：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .&#x2F;  # 将文件添加到暂存区</span><br><span class="line">vim laofu.txt  # 修改已暂存文件的内容</span><br><span class="line">git status  # 查看文件状态</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/11/bd197806a674bbb7e8a13743be61083e.png" width="70%"/>
+
+<p>注意：已暂存的文件修改后会出现两种状态，必须再次执行git add命令，否则提交的内容还是上次暂存的版本</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>git diff</p>
+<blockquote>
+<p>批量查看已跟踪文件的状态</p>
+</blockquote>
+<ul>
+<li><p>查看已跟踪的文件中哪些修改需要暂存：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim laofu.txt  # 修改文件，将其变为未暂存状态</span><br><span class="line">git diff  # 查看哪些更新需要暂存</span><br></pre></td></tr></table></figure>
+
+<p> 运行结果：</p>
+ <img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/11/daa0bffc3dbf499f6b4f3d079574276e.png" width="70%"/>
+</li>
+<li><p>查看已跟踪的文件中哪些暂存需要提交：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add .&#x2F;  # 将文件添加到暂存区</span><br><span class="line">git diff --cached  # 查看哪些暂存需要提交</span><br></pre></td></tr></table></figure>
+
+<p> 运行结果：</p>
+ <img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/11/42713540b7ad165404f6aac5dbc885f1.png" width="70%"/>
+</li>
+</ul>
+</li>
+<li><p>查看提交记录</p>
+<ul>
+<li><p>详细显示提交记录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log  # 查看提交记录（包含提交对象hash值、提交者、时间等）</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/12/1e50ae7b98cf79d353fd025454dde38d.png" width="70%"/>
+
+<p>注意：如果内容过多，可以按上下键翻页查看，按q键退出</p>
+</li>
+<li><p>单行显示提交记录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log  --oneline  # 单行显示每条提交记录</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/12/ed01922eac40dd72b8d55913bf84fa71.png" width="70%"/>
+</li>
+<li><p>显示提交记录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --oneline --decorate --graph --all</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/19s/b3dd617dfd34aa2d668301e444f4197f.png" width="70%"/>
+
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h2><ol>
+<li><p>定义：将某个文件从工作区中删除</p>
+</li>
+<li><p>案例1：使用rm命令删除laofu.txt文件后再使用 <code>git status</code> 命令查看文件状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rm -rf laofu.txt  # 删除文件</span><br><span class="line">ls  # 查看文件目录</span><br><span class="line">git status  # 查看文件状态</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/11/29a5ecad4f1d81928195e09adc4f7d88.png" width="70%"/>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .&#x2F;  # 将修改加入暂存区</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/19s/f522386f888cdb2a3570e441bdc3ff7e.png" width="70%"/>
+</li>
+<li><p>案例2：使用 <code>git rm</code> 命令删除已跟踪的文件，比较与rm的区别</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/12/3c37641eb837bd427263f30c09eeff26.png" width="70%"/>
+</li>
+<li><p>比较 <code>git rm</code> 和 <code>rm</code> ：<code>git rm</code> 与 <code>rm -rf</code>  + <code>git add</code> 作用相同</p>
+</li>
+</ol>
+<h2 id="修改文件"><a href="#修改文件" class="headerlink" title="修改文件"></a>修改文件</h2><ol>
+<li><p>定义：将工作区文件重命名后添加到暂存区</p>
+</li>
+<li><p>案例1：将laoliu.txt重命名为laoliuliu.txt后将其添加到暂存区，查看文件状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mv laoliu.txt laoliuliu.txt  # 文件重命名</span><br><span class="line">git status  # 查看重命名后的文件状态</span><br><span class="line">git add .&#x2F;  # 将改名后的文件添加到暂存区</span><br><span class="line">git status  # 查看重新添加到暂存区后文件的状态</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/11/f993a6db0b4758741708769f154b4da2.png" width="70%"/>
+</li>
+<li><p>案例2：使用 <code>git mv</code> 命令重命名已跟踪的文件，比较与mv的区别</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git mv test.txt tests.txt  # 文件重命名</span><br><span class="line">git status  # 查看文件状态</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/12/798d7306f9f8c5da27e33d92b5198aa7.png" width="70%"/>
+</li>
+<li><p>比较 <code>git mv</code> 和 <code>mv</code> ：<code>git mv</code> 与 <code>mv</code>  + <code>git add</code> 作用相同</p>
+</li>
+</ol>
+<h1 id="git分支操作"><a href="#git分支操作" class="headerlink" title="git分支操作"></a>git分支操作</h1><h2 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h2><ol>
+<li><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch 分支名  # 在当前分支创建分支</span><br><span class="line">git branch 分支名 提交对象  # 创建分支并指向某个提交对象</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>案例1：创建一个名为damu的分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch damu</span><br><span class="line">git log --oneline  # 查看当前分支</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/13/bb429d154021a4dae7dbbdd624600541.png" width="70%"/>
+
+<p>注意：HEAD所指向的分支就是当前所在分支</p>
+</li>
+<li><p>案例2：在hash值为e319357的提交对象上创建dev分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch dev e319357  # 创建名为dev的分支，指向提交对象e319357</span><br><span class="line">git log --oneline  # 查看当前分支信息</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20/c822953443f6345c5874899f6615973d.png" width="70%"/>
+
+<p>创建dev分支后，工作区并没有dev分支对应的文件：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/13/517ca86544b2435fdecb97d414dfb90e.png" width="70%"/>
+
+<p>注意：想要在工作区显示某个分支的文件，就要将当前分支切换到该分支</p>
+</li>
+</ol>
+<h2 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h2><ol>
+<li><p>用途：当想给项目添加一个新功能时，就可以新建一个分支</p>
+<ul>
+<li>对新分支代码满意：将新分支合并到master分支，从而在项目中添加该新功能</li>
+<li>对新分支代码不满意：回退到master分支</li>
+</ul>
+</li>
+<li><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout 分支名  # 切换分支</span><br><span class="line">git checkout -b 分支名  # 创建并切换到该分支</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li>每次切换分支之前，都要保证当前分支是干净的（git status看一下，防止分支被污染）</li>
+<li>切换分支会改变HEAD、暂存区、工作区（版本库内容不会改变，只会无限的增多）</li>
+</ul>
+</li>
+<li><p>案例：切换当前分支到dev分支，并显示工作区文件目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git log --oneline  # 查看当前分支信息</span><br><span class="line">git checkout dev  # 切换分支为dev</span><br><span class="line">ll  # 查看工作区文件目录</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/13/cf0b182d490cef019ae1f602df5f0cfe.png" width="70%"/>
+
+<p>分支切换到dev后，由于master分支在dev分支的后面，导致使用 <code>git log</code> 命令无法显示：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/13/18c420cae3d9be800a5e47e4d4d9b5c5.png" width="70%"/>
+
+<p>可以使用 <code>git log --oneline --decorate --graph --all</code> 显示完整分支信息：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/13/ab461e1b4089c8c995b0d54603dc6748.png" width="70%"/>
+
+</li>
+</ol>
+<h2 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h2><ol>
+<li><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -D 分支名  # 删除指定分支</span><br></pre></td></tr></table></figure>
+
+<p>注意：若要删除的分支为当前所在分支则必须先切换到其它分支，不可以自己删自己</p>
+</li>
+<li><p>案例：删除分支dev</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git log --oneline  # 查看当前分支</span><br><span class="line">git checkout master  # 切换分支到master</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/13/5803fdb4753198d6f394fee039bcccd0.png" width="70%"/>
+
+<p>注意：切换到其它分支前要保证分支干净，但上图未做判断（git status）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">   git log --oneline  # 再次查看当前分支</span><br><span class="line">git branch -D dev  # 删除dev分支</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/13/d6c01be3bc0bd254bc1e19f487514fa9.png" width="70%"/>
+
+<p>注意：其实删除分支的参数是 <code>-d</code> ，<code>-D</code> 是强制删除某个分支</p>
+</li>
+</ol>
+<h2 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h2><ol>
+<li><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git log --oneline  # 查看当前分支</span><br><span class="line">git branch  # 打印分支列表</span><br><span class="line">git branch -v  # 查看每个分支最后的提交信息（git log也能查看，但不够直观）</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>案例：</p>
+<ul>
+<li><p>查看当前所在分支：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --oneline  # 查看当前分支</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/19s/664a95793e6a25c00eab9a718e55da5d.png" width="70%"/>
+
+<p>注意：HEAD所指向的分支就是当前所在分支</p>
+</li>
+<li><p>打印分支列表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch  # 打印分支列表</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/13/a4d19cb106dbc31968695464724ef297.png" width="70%"/>
+</li>
+<li><p>查看每个分支最后的提交信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -v  # 显示每个分支最后的提交信息</span><br><span class="line">git log --oneline  # 显示当前版本信息</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/13/07b01952600ec6b2fc7bb716baff1979.png" width="70%"/>
+
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h2><ol>
+<li><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge 分支名  # 将当前分支与某分支合并</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>案例1：将damu分支合并到master分支（快速合并）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git log --oneline  # 查看当前分支</span><br><span class="line">git status  # 查看文件状态</span><br><span class="line">git checkout master  # 切换到master分支</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/13/406ed5e25d265d4c2252c82df07bfe14.png" width="70%"/>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git merge damu  # 将damu分支合并到master分支</span><br><span class="line">git log --oneline  # 再次查看当前分支</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/13/e8b406fbc1feb9439539f2b0da9cf503.png" width="70%"/>
+</li>
+<li><p>案例2：模拟并解决合并冲突（典型合并）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b &quot;ct-test&quot;  # 创建并切换到新分支</span><br><span class="line">ll  # 查看文件目录</span><br><span class="line">vim a.txt  # 修改a.txt</span><br><span class="line">git add .&#x2F;</span><br><span class="line">git commit -m &quot;2 commit for a.txt v2 for ct-test&quot;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/13/92e55443f5f28aac357aa2e433f43000.png" width="70%"/>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git status  # 切换分支前，确保分支干净</span><br><span class="line">git checkout master  # 切换分支到master</span><br><span class="line">vim a.txt  # 修改a.txt</span><br><span class="line">git commit -am &quot;3 commit for a.txt v2 for master&quot;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/13/b58ba0a21a3ab09eda16e670c126ac54.png" width="70%"/>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge ct-test  # 将ct-test分支合并到master</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/13/8811d1f4a063e949d3fa9bd481fa96dd.png" width="70%"/>
+
+<p>注意：上图中能看到是a.txt文件冲突</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim a.txt  # 查看冲突的文件</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/13/837e036a8a30a66f8e735ebadba55110.png" width="70%"/>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add .&#x2F;  # 告知git冲突已经解决</span><br><span class="line">git commit -m &quot;4 commit for fix ct&quot;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/13/d733fed59b0a92eae8a05a270dbbb433.png" width="70%"/>
+
+</li>
+</ol>
+<h2 id="其它内容"><a href="#其它内容" class="headerlink" title="其它内容"></a>其它内容</h2><ol>
+<li><p>分支模式</p>
+<ul>
+<li>长期分支：master</li>
+<li>特性分支：要实现某个功能而开的分支</li>
+</ul>
+</li>
+<li><p>分支本质：提交对象</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/13/9e1041d70455ddc5600677b44a77cf28.png" width="70%"/>
+
+<p>注意：每次提交后，分支对应的提交对象都会改变</p>
+</li>
+<li><p>分支原理：</p>
+<ul>
+<li><p>HEAD：存放其指向的分支名</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/13/e6ed5bc9be8a5f6726d5ac3a18fedba2.png" width="70%"/>
+</li>
+<li><p>.git/refs/heads：存放该分支对应的提交对象</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/14/a43db9b9ddb20112a164220b78ef8192.png" width="70%"/>
+
+<p>注意：项目中的所有分支都会被存放在.git/refs/heads/master目录下</p>
+</li>
+</ul>
+</li>
+<li><p>配别名：</p>
+<ul>
+<li><p>将命令git status配别名为git st：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global alias.st &quot;status&quot;  # 总结配别名的规律</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/14/80ebcc5dd8487dccee9d9a7e1f3f2b3b.png" width="70%"/>
+
+<p>注意：当双引号中只有一个单词时，可将双引号省略</p>
+</li>
+<li><p>将命令 git log –oneline –decorate –graph –all 配别名为 git lol：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global alias.lol &quot;log --oneline --decorate --graph --all&quot;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/14/a235bdb2d4aa5130177ab33dea37128e.png" width="70%"/>
+
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="git存储"><a href="#git存储" class="headerlink" title="git存储"></a>git存储</h1><ol>
+<li><p>应用场景：要切换到其它分支，但当前分支的工作还没有完成，就可以利用git存储</p>
+</li>
+<li><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git stash list  # 查看当前分支下存储栈内容</span><br><span class="line">git stash  # 保存存储，将当前分支文件存入栈中</span><br><span class="line">git stash pop  # 应用栈顶存储，并将栈顶元素删除</span><br><span class="line">git stash apply  # 仅应用栈顶存储</span><br><span class="line">git stash drop 元素名称  # 仅删除栈中指定存储</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li>存储后当前分支会变成干净的分支，可以切换到其它分支（其本质还是做了一次提交，只是不计入log）</li>
+<li>栈中一般只存储一次，否则操作会很复杂</li>
+</ul>
+</li>
+<li><p>案例：在damu分支中修改a.txt文件，存储damu分支后切换到master分支，再切换到damu分支并恢复修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch  # 查看当前所在分支</span><br><span class="line">vim a.txt  # 修改a.txt内容</span><br><span class="line">git status  # 查看文件状态</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/14/5ca3977c91de7789cd27fd0689a0f275.png" width="70%"/>
+
+<p>注意：当前分支不干净，不能直接切换到master分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git stash  # 通过存储当前分支文件，将当前分支变为干净分支</span><br><span class="line">git stash list # 查看存储栈</span><br><span class="line">git status  # 查看文件状态</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/14/39b31539475b5f27b6b6525f2ede9f42.png" width="70%"/>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git checkout master  # 切换分支到master</span><br><span class="line">git checkout damu  # 切换分支到damu</span><br><span class="line">git stash list  # 查看当前分支存储内容</span><br><span class="line">git stash pop  # 应用栈顶存储，并删除栈顶内容</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/14/d4a8db15f483972cbf6bad529803bf7d.png" width="70%"/>
+
+</li>
+</ol>
+<h1 id="git后悔药"><a href="#git后悔药" class="headerlink" title="git后悔药"></a>git后悔药</h1><h2 id="工作区"><a href="#工作区" class="headerlink" title="工作区"></a>工作区</h2><blockquote>
+<p>撤销修改</p>
+</blockquote>
+<ol>
+<li><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout --文件名  # 撤销修改</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>案例：master分支下修改a.txt文件后撤销修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git status  # 查看文件状态</span><br><span class="line">git checkout -- a.txt  # 撤销修改</span><br><span class="line">git status  # 再次查看文件状态</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/14/824793fa8ec149ff32a2f8a8338dff4c.png" width="70%"/>
+
+<p>注意：git只能撤销已跟踪的文件</p>
+</li>
+</ol>
+<h2 id="暂存区"><a href="#暂存区" class="headerlink" title="暂存区"></a>暂存区</h2><blockquote>
+<p>撤销暂存</p>
+</blockquote>
+<ol>
+<li><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git restore --staged 文件名  # 撤销暂存</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>案例：修改a.txt内容并将其添加到暂存区后撤销暂存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim a.txt  # 修改文件内容</span><br><span class="line">git add .&#x2F;  # 将文件添加到暂存区</span><br><span class="line">git status  # 查看文件状态</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/14/e74d2d67fdeb72721e0eaff317d881d4.png" width="70%"/>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git restore --staged a.txt  # 撤销暂存</span><br><span class="line">git status  # 查看文件状态</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20/cbe222cba47dc4aa76792ad6fd0213de.png" width="70%"/>
+
+</li>
+</ol>
+<h2 id="版本库"><a href="#版本库" class="headerlink" title="版本库"></a>版本库</h2><blockquote>
+<p>撤销提交</p>
+</blockquote>
+<ol>
+<li><p>场景：提交后发现注释错误，需要修改注释</p>
+</li>
+<li><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit --amend  # 撤销提交</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>案例1：提交a.txt后修改注释内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;1 commit for a.txt v5&quot;  # 提交到版本库</span><br><span class="line">git lol  # 查看注释</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/14/8862b0a1d910ff17cee9c7ef834a6229.png" width="70%"/>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git commit --amend  # 撤销提交（修改注释）</span><br><span class="line">git lol  # 查看注释</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/14/4657f4c5ba2d506e380b5c27f372c397.png" width="70%"/>
+</li>
+<li><p>案例2：修改a.txt并将其提交到版本库，修改版本库中a.txt的内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim a.txt  # 修改a.txt文件内容</span><br><span class="line">git st  # 查看文件状态</span><br><span class="line">git commit -am &quot;1 commit for a.txt v6 50%&quot;  # 提交到版本库</span><br><span class="line">git lol  # 查看版本内容</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/15/c0363707db7f7cbd4ee277e519d7e687.png" width="70%"/>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim a.txt  # 再次修改a.txt文件内容</span><br><span class="line">git st  # 查看文件状态</span><br><span class="line">git add .&#x2F;  # 将修改后的a.txt文件添加到暂存区</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/15/29927e54ab1c7a3de2c34a3401f8e82d.png" width="70%"/>
+
+<p>注意区分：</p>
+<ul>
+<li><p>若执行：git commit –amend</p>
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/15/261f6e6b9df4c4c48c5e5dd9bfa090ee.png" width="70%"/>
+</li>
+<li><p>若执行：git commit -m “1 commit for a.txt v6 50%”</p>
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/15/e317849c387da4db17c46cb364affb58.png" width="70%"/>
+
+</li>
+</ul>
+<p>总结：</p>
+<ul>
+<li>使用 <code>git commit --amend</code> 命令会覆盖上次提交</li>
+<li>使用 <code>git commit -m &quot;&quot;</code> 命令提交与上次提交没有关系</li>
+</ul>
+</li>
+</ol>
+<h2 id="reset三部曲"><a href="#reset三部曲" class="headerlink" title="reset三部曲"></a>reset三部曲</h2><h3 id="reset命令"><a href="#reset命令" class="headerlink" title="reset命令"></a>reset命令</h3><ol>
+<li><p>作用：通过移动HEAD来实现版本回退</p>
+</li>
+<li><p>HEAD移动图示：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/15/aac63b8ad30816debca341a82a76f5d8.png" width="70%"/>
+
+<p>注意：HEAD会带着分支移动，要与checkout（切换分支）区分开</p>
+</li>
+<li><p>参数：</p>
+<ul>
+<li>–soft：只更新版本库内容</li>
+<li>–mixed：更新版本库、暂存区内容</li>
+<li>–hard：更新版本库、暂存区内容</li>
+</ul>
+</li>
+</ol>
+<h3 id="–soft"><a href="#–soft" class="headerlink" title="–soft"></a>–soft</h3><ol>
+<li><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --soft HEAD~【提交对象】  # 版本回退，并更新版本库内容；HEAD~表示上一次提交，也可使用提交对象</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>案例：切换file.txt到上一次提交版本</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/15/10fb19ded6c63a0e2b71877fef774e2f.png" width="70%"/>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git lol  # 查看当前版本</span><br><span class="line">git reset --soft HEAD~  # 切换版本</span><br><span class="line">git lol  # 再次查看当前版本</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/15/644813827737cd93ddf96995916a5a79.png" width="70%"/>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat file.txt  # 查看工作区内容</span><br><span class="line">git ls-file -s</span><br><span class="line">git cat-file -p git对象  # 查看暂存区内容</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/15/cbbf5fd88bcbfed4a5ca1acc2ecb7a21.png" width="70%"/>
+
+<p>总结：–soft参数只会更新版本库内容，不会更新暂存区、工作区内容</p>
+</li>
+</ol>
+<h3 id="–mixed"><a href="#–mixed" class="headerlink" title="–mixed"></a>–mixed</h3><ol>
+<li><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset 【--mixed】 HEAD~【提交对象】  # 版本回退，并更新版本库、暂存区内容</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>案例：切换file.txt到最后一次提交版本</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/15/282d84cf2239ab82de14285c5426e89f.png" width="70%"/>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git reflog  # 查看第三次提交的提交对象（git reflog能显示全部提交版本）</span><br><span class="line">git reset --mixed 提交对象  # 切换到最后一次提交</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/15/0396143a8c059767da7fce7cd8b428cc.png" width="70%"/>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git lol  # 查看版本库变化</span><br><span class="line">git ls-files -s</span><br><span class="line">git cat-file -p  git对象# 查看暂存区变化</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/15/3a1627ae3ae676e800754aa661deaf3e.png" width="70%"/>
+
+<p>总结：–mixed参数会更新版本库、暂存区内容，不会更新工作区内容</p>
+</li>
+</ol>
+<h3 id="–hard"><a href="#–hard" class="headerlink" title="–hard"></a>–hard</h3><ol>
+<li><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HEAD~【提交对象】  # 版本回退，并更新版本库、暂存区、工作区内容</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>案例：切换file.txt到上一次提交版本</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/15/10fb19ded6c63a0e2b71877fef774e2f.png" width="70%"/>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HEAD~  # 切换到上次提交</span><br><span class="line">cat file.txt  # 查看工作区变化</span><br><span class="line">git lol  # 查看版本库变化</span><br><span class="line">git ls-files -s</span><br><span class="line">git cat-file -p git对象  # 查看暂存区变化运行结果：</span><br></pre></td></tr></table></figure>
+
+<p> 运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/15/786e471c840b046df2c1564a6f62a712.png" width="70%"/>
+
+<p>总结：–hard参数会更新版本库、暂存区、工作区内容</p>
+</li>
+<li><p>区分checkout：</p>
+<ul>
+<li>checkout只动HEAD，–hard动HEAD而且带着当前分支一起走</li>
+<li>checkout对工作目录是安全的，–hard是强制覆盖工作目录</li>
+</ul>
+</li>
+</ol>
+<h1 id="打tag"><a href="#打tag" class="headerlink" title="打tag"></a>打tag</h1><h2 id="标签列表"><a href="#标签列表" class="headerlink" title="标签列表"></a>标签列表</h2><ol>
+<li><p>标签用途：想要发布项目的1.0.0版本，就可以打一个v1.0.0的标签（版本号）</p>
+</li>
+<li><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git tag  # 列出所有标签</span><br><span class="line">git tag -l &quot;1.1.0*&quot;  # 列出所有1.1.0以后的版本</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="创建标签"><a href="#创建标签" class="headerlink" title="创建标签"></a>创建标签</h2><ol>
+<li><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git tag v1.0.0  # 创建标签</span><br><span class="line">git tag v1.0.0 提交对象  # 给指定提交对象创建标签</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>案例：创建一个v1.0的标签</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git tag v1.0  # 创建标签</span><br><span class="line">git lol  # 查看标签</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/15/ebfe3e4e3b0330d23c2910d79eaa3267.png" width="70%"/>
+
+<p>注意：创建新的提交后，tag位置不会随HEAD</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/15/269f37b07ef2e1af2e162278fe672dcb.png" width="70%"/>
+
+</li>
+</ol>
+<h2 id="查看标签"><a href="#查看标签" class="headerlink" title="查看标签"></a>查看标签</h2><ol>
+<li><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show v1.0  # 查看指定标签</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>案例：查看标签v1.0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show v1.0</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/15/b9a6aecbe7bfbc957e100560cbbe7686.png" width="70%"/>
+
+</li>
+</ol>
+<h2 id="删除标签"><a href="#删除标签" class="headerlink" title="删除标签"></a>删除标签</h2><ol>
+<li><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -d 标签名  # 删除指定标签</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>案例：给第一次提交打标签v1.0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git tag -d v1.0  # 删除原来的v1.0标签</span><br><span class="line">git lol  # 查看第一次提交的commitHash</span><br><span class="line">git tag v1.0 提交对象  # 给指定提交对象打v1.0标签</span><br><span class="line">git lol  # 查看版本日志</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/15/4e9e4b4dce95a0a98e651632cc796926.png" width="70%"/>
+
+</li>
+</ol>
+<h2 id="检出标签"><a href="#检出标签" class="headerlink" title="检出标签"></a>检出标签</h2><ol>
+<li><p>用途：想查看、修改某个版本的文件内容</p>
+</li>
+<li><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout &quot;标签号&quot;  # 先切换到指定标签</span><br><span class="line">git checkout -b &quot;标签号&quot;  # 再给当前标签创建分支</span><br></pre></td></tr></table></figure>
+
+<p>注意：如果仅执行 <code>git checkout &quot;标签号&quot;</code> 这个命令，会导致git处于“头”，“身”分离的状态</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/15/9a7ae972a5dc838c169c84d5e3cb98bb.png" width="70%"/>
+
+</li>
+</ol>
+<h1 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h1><h2 id="项目经理"><a href="#项目经理" class="headerlink" title="项目经理"></a>项目经理</h2><ol>
+<li><p>创建远程仓库</p>
+<ul>
+<li><p>登录github，点击右上角“+”，选择New repository：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20s/4a32d3cefccb42c49614a17eead03dd1.png" width="70%"/>
+</li>
+<li><p>输入仓库信息：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/16/5bbc1a676aac1e96227279f0362d1938.png" width="70%"/>
+</li>
+<li><p>创建完成：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/16/6669578757574e9cc34e1692f5bba316.png" width="70%"/>
+</li>
+</ul>
+</li>
+<li><p>创建工作目录</p>
+<ul>
+<li><p>新建空白文件夹：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/16/f7d5172cde930a15e0ffde9a6f9d45ad.png" width="70%"/>
+</li>
+<li><p>输入命令，初始化仓库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init  # 初始化仓库</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/16/4ba47bb21287d883ec2c37881aa0b35c.png" width="70%"/>
+</li>
+</ul>
+</li>
+<li><p>为远程仓库配置别名、用户信息</p>
+<ul>
+<li><p>为远程仓库配置别名：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git remote -v  # 显示远程仓库别名和对应url</span><br><span class="line">git remote add 别名 url  # 添加一个新的远程仓库同时指定一个别名</span><br><span class="line">git remote rename 别名 新别名  # 重命名远程仓库</span><br><span class="line">git remote rm 别名  # 删除某个远程仓库</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/16/148d73882b9dfd560c1a7b90dfd70bb1.png" width="70%"/>
+</li>
+<li><p>配置用户信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --list  # 查看配置信息</span><br><span class="line">git config --global user.name &quot;XJHui&quot;</span><br><span class="line">git config --global user.email &quot;admin@mail.plushine.cn&quot;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/16/2d806465fcf124bc1d203a6bf9e37457.png" width="70%"/>
+</li>
+<li><p>删除配置信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --list  # 查看配置信息</span><br><span class="line">git config --global --unset user.name  # 删除配置信息</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20/99b3ad8b2a632cea5ad6212614e2caab.png" width="70%"/>
+</li>
+</ul>
+</li>
+<li><p>推送本地项目到远程仓库</p>
+<ul>
+<li><p>创建文件，提交到版本库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;damu.txt v1&quot; &gt; damu.txt</span><br><span class="line">git add .&#x2F;</span><br><span class="line">git commit -m &quot;1 commit for damu.txt v1 from taobao&quot;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20/fb48dfbd2a9125cabc4eda1d50853137.png" width="70%"/>
+</li>
+<li><p>将版本库内容推送到远程仓库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git lol  # 查看版本库</span><br><span class="line">git push 别名 分支名  # 将版本库内容推送到远程仓库</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：（下图提到的用户名和密码是github的用户名和密码，非git中所配置的用户信息）</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/16/1a4669a4dd18b7a5cb6fb6680b88d329.png" width="70%"/>
+
+<p>推送成功：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/16/73eb996c61ba4a073a9ace06cecb587b.png" width="70%"/>
+</li>
+</ul>
+</li>
+<li><p>邀请成员</p>
+<ul>
+<li><p>进入项目设置-》Settings-》Manage access-》Invite a collaborator：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/16/ff858bb201e3570aac34770201c8be66.png" width="70%"/>
+</li>
+<li><p>输入用户名，搜索成员：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20/31a9d842cae640567d6566ce54a951c3.png" width="70%"/>
+</li>
+<li><p>等待成员同意邀请：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/16/9fd64d180787eb29e543520f7c4794ba.png" width="70%"/>
+
+<p>成员访问邀请链接：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/16/13333eed5ad92caf6b9643fde80ed65a.png" width="70%"/>
+
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="成员操作"><a href="#成员操作" class="headerlink" title="成员操作"></a>成员操作</h2><ol>
+<li><p>克隆仓库到本地</p>
+<ul>
+<li><p>创建文件夹，克隆项目：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone url  # 克隆远程仓库</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/16/3f24cc526f8e84b67c7d8780ed438c82.png" width="70%"/>
+
+<p>注意：</p>
+<ul>
+<li>克隆后会生成一个与远程仓库同名的文件夹存放项目文件</li>
+<li>成员克隆项目前不需要执行 <code>git init</code> 命令</li>
+</ul>
+</li>
+<li><p>查看克隆的项目：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd git-study  # 进入文件夹</span><br><span class="line">ll  # 查看文件目录</span><br><span class="line">cat damu.txt  # 查看文件内容</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/16/41282e2bd345204661e404358f9abbbb.png" width="70%"/>
+</li>
+<li><p>查看项目默认别名：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/16/2a63976fd3892f7c86b8383911755507.png" width="70%"/>
+
+<p>注意：克隆下来的仓库别名默认为origin</p>
+</li>
+</ul>
+</li>
+<li><p>修改文件，推送提交：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;plushine.txt v1&quot; &gt; plushine.txt  # 新建文件</span><br><span class="line">git add .&#x2F;</span><br><span class="line">git commit -m &quot;2 commit for plushine.cn v1 from plushine&quot;</span><br><span class="line">git push origin master  # 推送到远程仓库</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/16/9adcbb6b5aff7c6c50d979855e5a9437.png" width="70%"/>
+</li>
+<li><p>补充：本地分支、远程分支、跟踪分支（远程跟踪分支，本地分支和远程分支之间的媒介）</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20/07b3b2a9a613eb6b3bfebca6cdce147a.png" width="70%"/>
+
+</li>
+</ol>
+<h2 id="更新内容"><a href="#更新内容" class="headerlink" title="更新内容"></a>更新内容</h2><ol>
+<li><p>场景：当团队中其它成员向远程仓库中提交了新的代码，就需要将自己电脑上的内容更新</p>
+</li>
+<li><p>案例：更新项目经理电脑上的内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ll  # 查看文件列表</span><br><span class="line">git remote -v  # 查看别名</span><br><span class="line">git fetch 别名  # 内容会更新到跟踪分支上</span><br><span class="line">ll  # 再次查看文件列表</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/16/8df2c4f0ead892c9a676384d68ca0c2c.png" width="70%"/>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git status  # 切换分支前保证分支干净</span><br><span class="line">git checkout  跟踪分支  # 切换当前分支到跟踪分支</span><br><span class="line">ll  # 查看文件目录</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/16/3da90e668764ee73a3b075caf3003c84.png" width="70%"/>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout master  # 切换分支到master</span><br><span class="line">git merge taobao&#x2F;master  # 将跟踪分支内容合并到本地分支</span><br><span class="line">ls  # 查看文件目录</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20/44e3afeccce79bdc16049910ec615b8e.png" width="70%"/>
+
+</li>
+</ol>
+<h2 id="push和pull"><a href="#push和pull" class="headerlink" title="push和pull"></a>push和pull</h2><ol>
+<li><p>如果本地分支跟踪了远程跟踪分支就可以直接使用git push和git pull命令上传和拉取文件，否则：</p>
+<ul>
+<li>上传：git push 别名 分支名</li>
+<li>拉取：git fetch 别名，git merge 远程跟踪分支</li>
+</ul>
+</li>
+<li><p>判断是否跟踪：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -vv  # 查看本地分支是否跟踪远程跟踪分支</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/17/b59cc19f61a9cac41922519452f41c4a.png" width="70%"/>
+
+<p>注意：上图中存在联系即代表已跟踪，不存在联系代表未跟踪</p>
+</li>
+<li><p>如何让本地分支跟踪远程跟踪分支</p>
+<ul>
+<li><p>clone仓库时本地分支会自动跟踪远程跟踪分支（成员可直接执行 git push 和 git pull 命令）</p>
+</li>
+<li><p>在新建分支时，可以让本地分支跟踪指定的远程跟踪分支：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b 本地分支名 跟踪分支名  # 新建本地分支，并让本地分支跟踪远程跟踪分支</span><br><span class="line">git checkout --track 远程跟踪分支名  # 新建与远程跟踪分支同名的本地分支，并让本地分支跟踪远程跟踪分支</span><br></pre></td></tr></table></figure>
+
+<p>注意：存在远程跟踪分支时才能使用该命令，可以使用 <code>git fetch</code> 命令生成远程跟踪分支</p>
+</li>
+<li><p>让已存在的本地分支跟踪远程跟踪分支：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -u 远程分支名</span><br></pre></td></tr></table></figure>
+
+<p>注意：同时存在本地分支、远程跟踪分支时才能使用该命令（git lol判断是否存在）</p>
+</li>
+</ul>
+</li>
+<li><p>案例：a、b两个文件夹分别代表团队项目经理和成员，模拟使用 git pull 和 git push 命令</p>
+<ul>
+<li><p>a中创建分支zdy和文件zdy.txt：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b zdy  # 创建并切换到新分支</span><br><span class="line">echo &#39;zdy.txt v1&#39; &gt; zdy.txt</span><br><span class="line">git add .&#x2F;</span><br><span class="line">git commit -m &quot;2 commit for zdy.txt v1 from a&quot;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/17/a7205c0dc2d735321d0efdb6804b02f6.png" width="70%"/>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push  # 上传分支</span><br><span class="line">git push git-study zdy  # 上传分支</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/17/0fcf262b22fa35903d869ea4955a4e02.png" width="70%"/>
+
+<p>注意：</p>
+<ul>
+<li>新分支要用 <code>git push 别名 分支名</code> 上传，<code>git branch -u</code> 也无法创建联系，因为没有远程跟踪分支</li>
+<li>执行命令 <code>git push git-study zdy</code> 后，git会自动创建远程跟踪分支，但本地分支并不会自动跟踪它</li>
+</ul>
+</li>
+<li><p>b从仓库获取zdy分支并修改zdy.txt文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git pull  # 成员b克隆仓库代码后本地分支会自动跟踪远程跟踪分支，所以可以使用git pull命令</span><br><span class="line">git lol</span><br><span class="line">git checkout --track origin&#x2F;zdy  # b中创建zdy本地分支，并跟踪远程跟踪分支</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/17/85c0f8cd4cf51b079f476e30f699dee4.png" width="70%"/>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim zdy.txt</span><br><span class="line">git add .&#x2F;</span><br><span class="line">git commit -m &quot;3 commit for zdy.txt v2 from b&quot;</span><br><span class="line">git push  # 上传修改</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/17/47726a2e4009a1e5a8eb2f47db2fccef.png" width="70%"/>
+</li>
+<li><p>a再次获取zdy分支内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git pull # 拉取仓库</span><br><span class="line">git branch -u git-study&#x2F;zdy  # 让本地分支跟踪远程跟踪分支</span><br><span class="line">git pull # 拉取仓库</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/17/08a2e7f14a6e19eda00114d4a195bfa5.png" width="70%"/>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat zdy.txt</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/17/5b0affa4709cd7b1c4a01f9e594b781d.png" width="70%"/>
+
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="远程冲突"><a href="#远程冲突" class="headerlink" title="远程冲突"></a>远程冲突</h2><ol>
+<li><p>冲突场合：本地操作（典型合并）、远程协作（push、pull）</p>
+</li>
+<li><p>案例1：模拟并解决push冲突（a为项目经理，b为团队成员）</p>
+<ul>
+<li><p>仓库内容：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/18/50502ede9b9179101c33170d9e3e2194.png" width="70%"/>
+</li>
+<li><p>a中修改a.txt并push到远程仓库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  vim a.txt</span><br><span class="line">git add .&#x2F;</span><br><span class="line">  git commit -m &quot;2 commit for a.txt v2 from a&quot;</span><br><span class="line">git push git-study master  # 本地分支未跟踪远程跟踪分支，不能使用git push命令</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/18/8a17ccf11ef63255ecfdacaf17478159.png" width="70%"/>
+</li>
+<li><p>b也修改a.txt并push到远程仓库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  vim a.txt</span><br><span class="line">git add .&#x2F;</span><br><span class="line">  git commit -m &quot;2 commit for a.txt v2 from b&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/18/c48921087011dd60a0fb166fb9071235.png" width="70%"/>
+
+<p>上图提示：当前推送所修改的内容在仓库已经做了修改，可以先git pull 拉取仓库内容，解决冲突后重新推送</p>
+</li>
+<li><p>b中拉取仓库内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/18/18ee1ad044bd642109760718871645ff.png" width="70%"/>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim a.txt  # 修改冲突</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/18/3a49bcf6d7004f792887029112bdb16a.png" width="70%"/>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .&#x2F;  # 告知git冲突已经解决</span><br><span class="line">git commit -m &quot;4 commit for fix a.txt conflict&quot;</span><br><span class="line">git push  # 再次推送</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20/caf8e88179668b12f92de536eaca98b0.png" width="70%"/>
+</li>
+</ul>
+</li>
+<li><p>案例2：模拟并解决pull冲突（a为项目经理，b为团队成员）</p>
+<ul>
+<li><p>在案例1基础上，a拉取仓库内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch -u git-study&#x2F;master  # 本地分支跟踪远程跟踪分支</span><br><span class="line">git pull  # 拉取仓库内容</span><br><span class="line">cat a.txt  # 查看文件内容</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/18/3ac11d2d7916f82b9c79788907aeede7.png" width="70%"/>
+</li>
+<li><p>a中修改a.txt文件并推送到远程仓库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim a.txt</span><br><span class="line">git add .&#x2F;</span><br><span class="line">git commit -m &quot;5 commit for a.txt v3 from a&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/18/839a5be097bd759ab81dea5093e08356.png" width="70%"/>
+</li>
+<li><p>b中修改a.txt文件，提交后使用git pull命令拉取仓库内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim a.txt</span><br><span class="line">git add .&#x2F;</span><br><span class="line">git commit -m &quot;6 commit for a.txt v3 from b&quot;</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/18/25eaea18f733e46817f6ab31ef1dabf6.png" width="70%"/>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim a.txt  # 解决冲突</span><br><span class="line">git add .&#x2F;  # 告知git冲突已解决</span><br><span class="line">git commit -m &quot;7 commit for fix a.txt conflict&quot;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/18s/02bb3fa9505eac5afce2f1b0343d1dbd.png" width="70%"/>
+
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="Pull-Request"><a href="#Pull-Request" class="headerlink" title="Pull Request"></a>Pull Request</h2><ol>
+<li><p>场景：当你想要参与修改某个项目，但没有推送权限，这时可以对这个项目进行“派生”（fork，在你的github空间中创建一个完全属于你的项目副本），将自己的修改提交到派生出的项目副本中并创建PR（Pull Request）请求，项目所有者审核同意后你所修改的内容就会进入源版本库。</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/19s/9794bf4db48b3d7d240b12386f4bb1f5.png" width="70%"/>
+</li>
+<li><p>基本流程：</p>
+<ul>
+<li>fork项目，clone副本项目到工作区</li>
+<li>修改文件，push到仓库，创建PR</li>
+<li>项目所有者审核，提交成功（失败）</li>
+</ul>
+</li>
+<li><p>案例：模拟使用PR（xingjiahui：项目创建者，PluShine：无推送权限但想参与修改）</p>
+<ul>
+<li><p>fork项目：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/19s/debc4135857a8b6287803a349052b6cf.png" width="70%"/>
+
+<p>fork后PluShine新增了项目副本仓库：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20/509a93468baf97492e0cd4dfe02630b9.png" width="70%"/>
+</li>
+<li><p>克隆副本仓库，push修改内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;PluShine&#x2F;git-study.git</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/19s/9acaebc2fb45590dc2a33e5e0219e209.png" width="70%"/>
+
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim a.txt</span><br><span class="line">git add .&#x2F;</span><br><span class="line">git commit -m &quot;7 commit for a.txt bug fix from PluShine&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/19s/e0275809c644a9e846adb5a3b95cb1e3.png" width="70%"/>
+
+<p>进入仓库，创建Pull Request：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/19s/021c15f6aed14a23762f656cdcbc07e2.png" width="70%"/>
+
+<p>PR创建成功：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/19s/142b2d78e15f1b5f7ee8280afca137bf.png" width="70%"/>
+</li>
+<li><p>项目创建者审核PR：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/19s/5fa0c508f3932f5e8aa78b61f015daf2.png" width="70%"/>
+
+<p>合并提交：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/19s/fec3aeef440196c28e5ba879291bf4f1.png" width="70%"/>
+
+<p>合并成功：</p>
+<img src= "https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/07/17/09d3e39264b9174dbc352c1a83898459.png" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20/253e3ed5b05528e3a32168c6ba3eb62e.png" width="70%"/>
+
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>不足之处，欢迎留言，会及时回复，及时更正！</p>
+<p>创作不易，感谢支持！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" rel="external nofollow noreferrer">PluShine</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://plushine.cn/24775.html">https://plushine.cn/24775.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://plushine.cn" target="_blank">XJHui's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/git/">git</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20s/0827707c207ced480cd9f1c47403f921.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/17196.html"><img class="prev-cover" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20s/1f90ed2188dba02bea0bf2085f856c05.png" onerror="onerror=null;src='https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/10/30/28126e3043a28e82a980c0afe5e23b5b.png'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">云班课作业互评(python3+selenium)</div></div></a></div><div class="next-post pull-right"><a href="/22094.html"><img class="next-cover" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/10/20/4a2f434fe0884db2cab10c960d38e6c0.png" onerror="onerror=null;src='https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/10/30/28126e3043a28e82a980c0afe5e23b5b.png'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Selenium Web自动化（Python3）</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/touxiang.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/10/30/510e2c828ef28669ccde919409a1835e.png'" alt="avatar"/><div class="author-info__name">PluShine</div><div class="author-info__description">欢迎来到XJHui's Blog！有疑问可以到“留言板”提问！^_^</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">33</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xingjiahui"><i class="fab fa-github"></i><span>博主的 GitHub 首页</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="http://sighttp.qq.com/authd?IDKEY=aed3a79d6ba65c6d83a35402189ab6faeeb887890818809d" rel="external nofollow noreferrer" target="_blank" title="腾讯 QQ"><i class="iconfont icon-qq1"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_43350051" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-CSDN"></i></a><a class="social-icon" href="https://zhuanlan.zhihu.com/xjhui" rel="external nofollow noreferrer" target="_blank" title="知乎专栏"><i class="iconfont icon-zhihu1"></i></a><a class="social-icon" href="https://space.bilibili.com/148073456" rel="external nofollow noreferrer" target="_blank" title="哔哩哔哩"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/08/23/45b4f9c1f43b984fd661fa16ac9bed3c.png" rel="external nofollow noreferrer" target="_blank" title="微信公众号"><i class="iconfont icon-gongzhonghao1"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">好博客，一定要 <span class="inline-tag red">分享出去</span> 呀！<br><img style="border-top:solid 6px rgba(1,1,1,0);" src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/08/22/a986e691b6620ec4516045287161a1c9.png" width="100%"/></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">关于笔记</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text">版本控制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E4%B8%AD%E5%BC%8F-svn"><span class="toc-number">2.1.</span> <span class="toc-text">集中式(svn)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F-git"><span class="toc-number">2.2.</span> <span class="toc-text">分布式(git)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%AE%E5%BC%82%E6%AF%94%E8%BE%83"><span class="toc-number">2.3.</span> <span class="toc-text">差异比较</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git"><span class="toc-number">3.</span> <span class="toc-text">git</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8F%B2"><span class="toc-number">3.1.</span> <span class="toc-text">简史</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">3.2.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">3.3.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git%E5%8C%BA%E5%9F%9F"><span class="toc-number">3.4.</span> <span class="toc-text">git区域</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git%E5%BA%95%E5%B1%82%E6%A6%82%E5%BF%B5"><span class="toc-number">4.</span> <span class="toc-text">git底层概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#git%E5%AF%B9%E8%B1%A1"><span class="toc-number">4.1.</span> <span class="toc-text">git对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%91%E5%AF%B9%E8%B1%A1"><span class="toc-number">4.2.</span> <span class="toc-text">树对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4%E5%AF%B9%E8%B1%A1"><span class="toc-number">4.3.</span> <span class="toc-text">提交对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93"><span class="toc-number">4.4.</span> <span class="toc-text">命令总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git%E9%AB%98%E5%B1%82%E5%91%BD%E4%BB%A4"><span class="toc-number">5.</span> <span class="toc-text">git高层命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B"><span class="toc-number">5.1.</span> <span class="toc-text">最基本流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6"><span class="toc-number">5.2.</span> <span class="toc-text">查看文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6"><span class="toc-number">5.3.</span> <span class="toc-text">删除文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6"><span class="toc-number">5.4.</span> <span class="toc-text">修改文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C"><span class="toc-number">6.</span> <span class="toc-text">git分支操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%88%86%E6%94%AF"><span class="toc-number">6.1.</span> <span class="toc-text">创建分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%87%E6%8D%A2%E5%88%86%E6%94%AF"><span class="toc-number">6.2.</span> <span class="toc-text">切换分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%88%86%E6%94%AF"><span class="toc-number">6.3.</span> <span class="toc-text">删除分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%88%86%E6%94%AF"><span class="toc-number">6.4.</span> <span class="toc-text">查看分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF"><span class="toc-number">6.5.</span> <span class="toc-text">合并分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E5%AE%83%E5%86%85%E5%AE%B9"><span class="toc-number">6.6.</span> <span class="toc-text">其它内容</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git%E5%AD%98%E5%82%A8"><span class="toc-number">7.</span> <span class="toc-text">git存储</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git%E5%90%8E%E6%82%94%E8%8D%AF"><span class="toc-number">8.</span> <span class="toc-text">git后悔药</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%8C%BA"><span class="toc-number">8.1.</span> <span class="toc-text">工作区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9A%82%E5%AD%98%E5%8C%BA"><span class="toc-number">8.2.</span> <span class="toc-text">暂存区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E5%BA%93"><span class="toc-number">8.3.</span> <span class="toc-text">版本库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#reset%E4%B8%89%E9%83%A8%E6%9B%B2"><span class="toc-number">8.4.</span> <span class="toc-text">reset三部曲</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#reset%E5%91%BD%E4%BB%A4"><span class="toc-number">8.4.1.</span> <span class="toc-text">reset命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%80%93soft"><span class="toc-number">8.4.2.</span> <span class="toc-text">–soft</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%80%93mixed"><span class="toc-number">8.4.3.</span> <span class="toc-text">–mixed</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%80%93hard"><span class="toc-number">8.4.4.</span> <span class="toc-text">–hard</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%89%93tag"><span class="toc-number">9.</span> <span class="toc-text">打tag</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%E5%88%97%E8%A1%A8"><span class="toc-number">9.1.</span> <span class="toc-text">标签列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%A0%87%E7%AD%BE"><span class="toc-number">9.2.</span> <span class="toc-text">创建标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%A0%87%E7%AD%BE"><span class="toc-number">9.3.</span> <span class="toc-text">查看标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E6%A0%87%E7%AD%BE"><span class="toc-number">9.4.</span> <span class="toc-text">删除标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E5%87%BA%E6%A0%87%E7%AD%BE"><span class="toc-number">9.5.</span> <span class="toc-text">检出标签</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="toc-number">10.</span> <span class="toc-text">远程仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E7%BB%8F%E7%90%86"><span class="toc-number">10.1.</span> <span class="toc-text">项目经理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%90%E5%91%98%E6%93%8D%E4%BD%9C"><span class="toc-number">10.2.</span> <span class="toc-text">成员操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9"><span class="toc-number">10.3.</span> <span class="toc-text">更新内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#push%E5%92%8Cpull"><span class="toc-number">10.4.</span> <span class="toc-text">push和pull</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E5%86%B2%E7%AA%81"><span class="toc-number">10.5.</span> <span class="toc-text">远程冲突</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pull-Request"><span class="toc-number">10.6.</span> <span class="toc-text">Pull Request</span></a></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/17196.html" title="云班课作业互评(python3+selenium)"><img data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20s/1f90ed2188dba02bea0bf2085f856c05.png" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/10/30/28126e3043a28e82a980c0afe5e23b5b.png'" alt="云班课作业互评(python3+selenium)"/></a><div class="content"><a class="title" href="/17196.html" title="云班课作业互评(python3+selenium)">云班课作业互评(python3+selenium)</a><time datetime="2020-10-29T02:16:30.000Z" title="发表于 2020-10-29 10:16:30">2020-10-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/24775.html" title="Git中级教程"><img data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/11/20s/0827707c207ced480cd9f1c47403f921.png" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/10/30/28126e3043a28e82a980c0afe5e23b5b.png'" alt="Git中级教程"/></a><div class="content"><a class="title" href="/24775.html" title="Git中级教程">Git中级教程</a><time datetime="2020-10-26T05:10:43.000Z" title="发表于 2020-10-26 13:10:43">2020-10-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/22094.html" title="Selenium Web自动化（Python3）"><img data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/10/20/4a2f434fe0884db2cab10c960d38e6c0.png" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/10/30/28126e3043a28e82a980c0afe5e23b5b.png'" alt="Selenium Web自动化（Python3）"/></a><div class="content"><a class="title" href="/22094.html" title="Selenium Web自动化（Python3）">Selenium Web自动化（Python3）</a><time datetime="2020-10-20T11:05:22.000Z" title="发表于 2020-10-20 19:05:22">2020-10-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/27214.html" title="QQ推送今日天气(python+云函数)"><img data-lazy-src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/10/17/1029116741b57890e9b326ddd52e05c9.png" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/10/30/28126e3043a28e82a980c0afe5e23b5b.png'" alt="QQ推送今日天气(python+云函数)"/></a><div class="content"><a class="title" href="/27214.html" title="QQ推送今日天气(python+云函数)">QQ推送今日天气(python+云函数)</a><time datetime="2020-10-16T23:31:45.000Z" title="发表于 2020-10-17 07:31:45">2020-10-17</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 By PluShine</div><div class="framework-info"><span>驱动框架💕 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>博客主题✨ </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://su.baidu.com/"><img src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/06/26/6a2bc771a2ead2434fa80740eaa22924.png" align="absmiddle" width="70px" height="20px"></a><span>&nbsp;&&nbsp;&nbsp;</span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.jsdelivr.com/"><img src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/06/26/7b059f8e9de1a268fdeb80109a192925.png" align="absmiddle" width="70px" height="20px"></a></div><div class="icp"><a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.beian.miit.gov.cn/"><img class="icp-icon" src="https://cdn.jsdelivr.net/gh/xingjiahui/CDN@latest/2020/06/06/0bcff08ca63f75f26d0f0db7290665fc.png" alt="ICP"/><span>鲁ICP备 20009899号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
+  else {
+    $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
+      pangu.spacingElementById('content-inner')
+    })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const friends = 'https://www.impdx.vip,https://www.impdx.vip/,https://bili33.top/,https://bili33.top,https://xiabor.com/,https://xiabor.com,https://www.antmoe.com,https://www.antmoe.com/,https://fuckzuoye.ga/,https://fuckzuoye.ga,https://zhouyunfei.club/,https://zhouyunfei.club,https://wangdudyb.gitee.io/blog/,https://wangdudyb.gitee.io/blog,https://www.meilinfeng.top/,https://www.meilinfeng.top,https://ply.cool,https://ply.cool/,https://www.isk.ink/,https://www.isk.ink,https://www.atdawn.tk,https://www.atdawn.tk/,https://justlovesmile.top/,https://justlovesmile.top,https://www.jiubrc.com/,https://www.jiubrc.com,https://nanzx.top/,https://nanzx.top,https://blog.slqwq.cn,https://blog.slqwq.cn/,https://lingstudy.gitee.io,https://lingstudy.gitee.io/,https://peacecity.cn/,https://peacecity.cn,https://iyyy.nl,https://iyyy.nl/,https://www.kikohk.top,https://www.kikohk.top/,https://fadeawayol.github.io/,https://fadeawayol.github.io,https://yww52.com,https://yww52.com/,https://abalone.life/,https://abalone.life,https://www.imzjw.cn,https://www.imzjw.cn/,https://www.iamzlt.com,https://www.iamzlt.com/,https://zangwhe.cn/,https://zangwhe.cn,https://zghya.cn/,https://zghya.cn,http://www.iamdqy.cn,http://www.iamdqy.cn/,https://hexo.io/zh-cn,https://hexo.io/zh-cn/,https://github.com/jerryc127/hexo-theme-butterfly/,https://github.com/jerryc127/hexo-theme-butterfly,https://github.com,https://github.com/,https://vercel.com,https://vercel.com/,https://valine.js.org,https://valine.js.org/,https://www.leancloud.cn,https://www.leancloud.cn/,https://github.com/Molunerfinn/PicGo/,https://github.com/Molunerfinn/PicGo,https://www.typora.io,https://www.typora.io/,https://www.fotor.com.cn,https://www.fotor.com.cn/'.split(',');  //将获取的友链地址存入变量friends中
+    let initData = {
+      el: '#vcomment',
+      appId: 'YEUA8TLuUAcMn94WkAI4SuzA-gzGzoHsz',
+      appKey: 'i07m822kUUdXLatLixeoLibn',
+      placeholder: '昵称栏输入QQ后按下Tab键，可以自动获取昵称和邮箱哦！',
+      avatar: 'mp',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '5',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: 'https://',
+      emojiMaps: {"custom1":"cdn.jsdelivr.net/gh/blogimg/emotion/custom/19.webp","custom2":"cdn.jsdelivr.net/gh/blogimg/emotion/custom/24.webp","custom3":"cdn.jsdelivr.net/gh/blogimg/emotion/custom/7.webp","custom4":"cdn.jsdelivr.net/gh/blogimg/emotion/custom/8.webp","custom5":"cdn.jsdelivr.net/gh/blogimg/emotion/custom/13.webp","custom6":"cdn.jsdelivr.net/gh/blogimg/emotion/custom/12.webp","custom7":"cdn.jsdelivr.net/gh/blogimg/emotion/custom/30.gif","custom8":"pic2.zhimg.com/v2-e572af592a4c5d7b1272741265df8e7d_b.gif","custom9":"pic1.zhimg.com/v2-fb2fdc36dff66c7bbc6f7f7fe5fb0564_b.gif","custom10":"pic3.zhimg.com/v2-0567ef42a240192aa8cc6414591cf0f2_b.gif","custom11":"pic4.zhimg.com/v2-3ca857bbb343d32bdeb66a330a3c48ff_b.gif","custom12":"pic2.zhimg.com/v2-5163087c3fabb0dcd7c8c3a0dfa64075_b.gif","custom13":"pic1.zhimg.com/v2-e80a73877ad43277c9ccff4f631ef93c_b.gif","custom14":"pic1.zhimg.com/v2-215941e4f016f6251ac549fcaa3899b4_b.gif","custom15":"pic2.zhimg.com/v2-3c1eaf1a9ed12401fe56fd889a3f1151_b.gif","custom16":"pic4.zhimg.com/v2-3667572fb0cb999e180487be43b00323_b.gif","custom17":"pic3.zhimg.com/v2-681c4f1cdc9d9c8b04af40d0cfcb0faa_b.gif","custom18":"pic3.zhimg.com/v2-aafa7ae089b4e124a318ef59bc4a470e_b.gif","custom19":"pic2.zhimg.com/v2-1944ef897865961033233282215490f9_b.gif","custom20":"pic3.zhimg.com/v2-bb309ecce53658416d270550377a73a2_b.gif","custom21":"pic1.zhimg.com/v2-35eeb1d14b56b7b43aac45055f75eaa8_b.gif","custom22":"pic3.zhimg.com/v2-9de252f01196ce895ca7a8866300dc32_b.gif","custom23":"pic1.zhimg.com/v2-c8096214f4b41efe48bb88ba3036cd70_b.gif","custom24":"pic2.zhimg.com/v2-3b4cd517f5440257f0d3ddf57808ccf1_b.gif","custom25":"pic3.zhimg.com/v2-181a31a055a8a63139bce5d4ed7bb67a_b.gif","custom26":"pic2.zhimg.com/v2-7e007496712a40e0178bea8bdcc53275_b.gif","custom27":"pic3.zhimg.com/v2-056f81c46fc2ffef8de549db7ca88dbe_b.gif","custom28":"pic4.zhimg.com/v2-4001df7dac4076c71eb25cc2715ffae3_b.gif","custom29":"pic2.zhimg.com/v2-8527b778588d1e3ec600cc093f6b9685_b.gif","custom30":"pic2.zhimg.com/v2-ed112e0c8b365eed90e3d0fba99ef959_b.gif","custom31":"pic1.zhimg.com/v2-5e720c6af6fa953dbe80d7acfec9eb6c_b.gif","custom32":"pic4.zhimg.com/v2-6c36175478eca8926a29011cbb7a39d7_b.gif","custom33":"pic1.zhimg.com/v2-33cee90bf0f730beb8f3217df7b50e20_b.gif","custom34":"pic2.zhimg.com/v2-b5eccdef676bfbb91f277f7081ee50e1_b.gif","custom35":"pic3.zhimg.com/v2-c780479dbe201896aa26176f3a7d44b6_b.gif","custom36":"pic1.zhimg.com/v2-551dd3d1e059d84c027d46b958a94f90_b.gif","custom37":"pic2.zhimg.com/v2-48b0cfa1b685a037875f0bd0bdb500dd_b.gif","custom38":"pic2.zhimg.com/v2-390105b06925f71b754a11f82d57fde5_b.gif","custom39":"pic3.zhimg.com/v2-1eb745ae6d6d030c55dd694c9fd4e9d6_b.gif","custom40":"pic3.zhimg.com/v2-597c097311126fe8bf3bf956fb7e54ea_b.gif","custom41":"pic3.zhimg.com/v2-7236186ffee6ec269163e09404f255de_b.gif","custom42":"pic3.zhimg.com/v2-f2a9c6e9d8cc423856bcd746aaf99e0a_b.gif","custom43":"pic4.zhimg.com/v2-57830232d755f8f7a638529092d6e8ef_b.gif","custom44":"pic4.zhimg.com/v2-c50ea4eae7fa31de787f281b490e3b0b_b.gif","custom45":"pic4.zhimg.com/v2-0fd936cc5c0845897d0095ccfd4c56a3_b.gif","custom46":"pic2.zhimg.com/v2-c377e106a5c540aec11a59d519161f2d_b.gif","custom47":"pic1.zhimg.com/v2-93488a1f970ebb48e00cd6c4783bf808_b.gif","custom48":"pic3.zhimg.com/v2-b59fe0db6cd292d7e5b7144df03b1aea_b.gif","custom49":"pic2.zhimg.com/v2-58c791d7544c1a65d1645146c375b8ad_b.gif","custom50":"pic3.zhimg.com/v2-73f9013b1629ec4eb43764c345e90032_b.gif","custom51":"pic2.zhimg.com/v2-ff76d3d0edf8985fda1849129a2c9ed1_b.gif","custom52":"pic1.zhimg.com/v2-3c88bb276007a76e66fbf80f261dc470_b.gif","custom53":"pic1.zhimg.com/v2-7780da7452785c7d3d924a1877bc1544_b.gif","custom54":"pic2.zhimg.com/v2-c5ab25dbdb322554cfc4fff95944fa11_b.gif","custom55":"pic4.zhimg.com/v2-4cdf8d6eb70ef925186e19dea14a774f_b.gif","custom56":"pic4.zhimg.com/v2-9bc71ca21fd75b737f7a58c1a3ecb6bb_b.gif","custom57":"pic2.zhimg.com/v2-dd6bdf233268397905b052fcbe563fa9_b.gif","custom58":"pic2.zhimg.com/v2-c1286bdfbfca9dca67af8b620fe48939_b.gif","custom59":"pic2.zhimg.com/v2-e2423a19028a3abacf11d8761e8bfa19_b.gif","custom60":"pic4.zhimg.com/v2-29a795d37053863310a04378c5f56f83_b.gif","custom61":"pic4.zhimg.com/v2-98cadd6464caf5c3939a370596ec0093_b.gif","custom62":"pic3.zhimg.com/v2-31f77eec98a92cd861fe48b96f37289e_b.gif","custom63":"pic2.zhimg.com/v2-b651a63912807daddc4b411836d2e2cd_b.gif","custom64":"pic1.zhimg.com/v2-e36ae3cd61b2344dc9eb657ac630787c_b.gif","custom65":"pic1.zhimg.com/v2-56781dd58ed247ce6cc8f5000b463f28_b.gif","custom66":"pic3.zhimg.com/v2-7c0709c030775f42350a4dfaae8abdd2_b.gif","custom67":"pic3.zhimg.com/v2-0862a36e96dcd4b0eb8aaa6a724434ca_b.gif","custom68":"pic1.zhimg.com/v2-53ac3570ebdb0d7c5bfc521e9d25deac_b.gif","custom69":"pic1.zhimg.com/v2-ceb106b2200f6dbd954c9976931d93bc_b.gif","custom70":"pic1.zhimg.com/v2-680caf4670b4442c3637304c9babb874_b.gif","custom71":"pic2.zhimg.com/v2-ce56dd5cc9c81d4bd3e76c1d8fc3015d_b.gif","custom72":"pic1.zhimg.com/v2-d3e6f5eb204592548a2c01f661864d80_b.gif","custom73":"pic2.zhimg.com/v2-83730a87a6c51767f28132622c1fc0a9_b.gif","custom74":"pic3.zhimg.com/v2-5e8098ffcf9c4eea0ea713035157831e_b.gif","custom75":"pic1.zhimg.com/v2-b6dc883acee237c8b77a081b3c727c44_b.gif","custom76":"pic1.zhimg.com/v2-c38e6883d21f2fabf3c39b50ba498990_b.gif","custom77":"pic2.zhimg.com/v2-e2afb155f0de4f2c55a6bc329ac30ea9_b.gif","custom78":"pic4.zhimg.com/v2-9977dc5ea13ad6b30243e2568a53fbaf_b.gif","custom79":"pic3.zhimg.com/v2-37f24a50383fdfab91bd5fc18598ee06_b.gif","custom80":"pic3.zhimg.com/v2-62dd7e4ee42d2fc87228218b8000c0a2_b.gif","custom81":"pic2.zhimg.com/v2-9424bb340713dcb37d45dd5660af199d_b.gif","custom82":"pic1.zhimg.com/v2-93fd43bc9fbd0b542ac532053380506c_b.gif","custom83":"pic4.zhimg.com/v2-95731e6bb902a5e6983158dd7dc33d0b_b.gif","custom84":"pic4.zhimg.com/v2-20bb020f13e6bc6f835e18323be6bdd3_b.gif","custom85":"pic2.zhimg.com/v2-81bb85951b8564a35b3b56c4f815e81d_b.gif","custom86":"pic1.zhimg.com/v2-2926449281d63bb9e366a7cae8f6db20_b.gif","custom87":"pic2.zhimg.com/v2-679d5d182bd240dc8a8edc775e4fb4ad_b.gif","custom88":"pic1.zhimg.com/v2-88a2364402b90559dac36a7cda38a4a0_b.gif","custom89":"pic3.zhimg.com/v2-a40d310c471685a300003001db165d96_b.gif","custom90":"pic2.zhimg.com/v2-d9d785c9ceb06adc30d3db359d223e09_b.gif","custom91":"pic4.zhimg.com/v2-2d64b6d43c06b2e9e28b53d8a2a37d57_b.gif","custom92":"pic4.zhimg.com/v2-1760e5210f7e2073ce11fa74a2735a7b_b.gif","custom93":"pic3.zhimg.com/v2-0cc94ca6970c22e3ab8a9d18576dfbd6_b.gif","custom94":"pic3.zhimg.com/v2-8f532f4a36ac6879ce07ed47590cc8a6_b.gif","custom95":"pic1.zhimg.com/v2-95d35d83e9ea74a4853ded89e48b56a8_b.gif","custom96":"pic4.zhimg.com/v2-bca71b4e7a56779c21d84f44e0555973_b.gif","custom97":"pic1.zhimg.com/v2-0ae83e71fb9a241d7ff7ce852e318a40_b.gif","custom98":"pic1.zhimg.com/v2-31e18866441a228f7aaf5b63775feb34_b.gif","custom99":"pic1.zhimg.com/v2-25b19033705d96b8dd5b517a99d52ab4_b.gif","custom100":"pic2.zhimg.com/v2-d1ac062e897449b30ed254be7d6d3e3d_b.gif","custom101":"pic4.zhimg.com/v2-c801f0c1e9f69cb205177b1a27d294d7_b.gif","custom102":"pic3.zhimg.com/v2-d2c3bfa27bc3c9857b1919d5d39bba86_b.gif","custom103":"pic2.zhimg.com/v2-59bcedc7deb8de6c444a7034628686dd_b.gif","custom104":"pic1.zhimg.com/v2-65e8bcf3bc1058a290cadfc6c6c4fd54_b.gif","custom105":"pic2.zhimg.com/v2-9424bb340713dcb37d45dd5660af199d_b.gif","custom106":"pic4.zhimg.com/v2-3418357b00de23ad4c56518e5fb1f193_b.gif","custom107":"pic2.zhimg.com/v2-ce0d5597053ae87c9d87c1e0d0cec901_b.gif","custom108":"pic2.zhimg.com/v2-35e61f7762287ee18f4944cc72232085_b.gif","custom109":"pic4.zhimg.com/v2-6aecb3bc3269e478f2a08d4e46918a73_b.gif","custom110":"pic3.zhimg.com/v2-abcb76e88c215a14493bbb34bb567e16_b.gif","custom111":"pic2.zhimg.com/v2-9930adc06149d7948e32bde4fdb3ada5_b.gif","custom112":"pic2.zhimg.com/v2-d7df1e9fe66d559d1e3103282c735a3d_b.gif","custom113":"pic4.zhimg.com/v2-e5b9d0f7ffb5db93e100507c68dfce43_b.gif","custom114":"pic4.zhimg.com/v2-aff47b605da193111c61155fe42f020f_b.gif","custom115":"pic3.zhimg.com/v2-f9fea5bb44a0c55daf3b6d5cd1e14fa2_b.gif","custom116":"pic2.zhimg.com/v2-7ba02b43a6e29ccf7a4d9d5c07f1f841_b.gif","custom117":"pic1.zhimg.com/v2-be861e6493cd879eda9d201f09c025bc_b.gif","custom118":"pic3.zhimg.com/v2-3b14278c97109b914f4ac14a19b00bc2_b.gif","custom119":"pic4.zhimg.com/v2-b57de09fec1ebc9172f0d483cdf9d467_b.gif","custom120":"pic2.zhimg.com/v2-d501afd61c71b780824b9361771f4005_b.gif","custom121":"pic4.zhimg.com/v2-1760e5210f7e2073ce11fa74a2735a7b_b.gif","custom122":"pic1.zhimg.com/v2-d9b48cfeb56da1070cbd1ce9d41581d4_b.gif","custom123":"pic1.zhimg.com/v2-9aea05a387c82248be185c1bb229803c_b.gif","custom124":"pic3.zhimg.com/v2-a5388ce79bb31d7bb3ccb80403b94332_b.gif","custom125":"pic2.zhimg.com/v2-100aca4030f5d1b40bcee87d62d7f66d_b.gif","custom126":"pic1.zhimg.com/v2-ff22c98629d32876092ebd0ca9715584_b.gif","custom127":"pic3.zhimg.com/v2-4e22550d190c3d8b5c0b353e1065b532_b.gif","custom128":"pic2.zhimg.com/v2-32b8497d622649c2d00b74be71971c4d_b.gif","custom129":"pic2.zhimg.com/v2-602e7680e81e621c3d2c653d24288da9_b.gif","custom130":"pic4.zhimg.com/v2-8d592b7d1b55eb4307da4790750ba333_b.gif","custom131":"pic1.zhimg.com/v2-1fd69d40fbb2efbea1fca9ce4c416050_b.gif","custom132":"pic2.zhimg.com/v2-2e139cf57cd7daafc68de5e7f91e7629_b.gif","custom133":"pic2.zhimg.com/v2-291c5c10504077692f7683af97413a2d_b.gif","custom134":"pic4.zhimg.com/v2-69bffcc804a13ab1768f702667bdd40f_b.gif","custom135":"pic1.zhimg.com/v2-bc26a205d5e016ee0642ecced24ff490_b.gif","custom136":"pic1.zhimg.com/v2-29ee02808b809812465b3d09847a683c_b.gif","custom137":"pic1.zhimg.com/v2-44cf5897353d056cefd5480bec2c81e4_b.gif","custom138":"pic2.zhimg.com/v2-7e3d1027066f3637b2fe1d1be943d879_b.gif","custom139":"pic1.zhimg.com/v2-7f23f4443cf26b09a7702f79e5395444_b.gif","custom140":"pic1.zhimg.com/v2-87505a4a0393e32cc13a4c16434f9558_b.gif","custom141":"pic3.zhimg.com/v2-1ced686ce3147ae0dcf3b4c44af64b66_b.gif","custom142":"pic3.zhimg.com/v2-4775417b57c694622ac62d738308269a_b.gif","custom143":"pic3.zhimg.com/v2-1787eb6552b14eb897a0d3ae0462f516_b.gif","custom144":"pic1.zhimg.com/v2-fe022032cbe480f5522e4cd64cdb4b94_b.gif","custom145":"pic4.zhimg.com/v2-dad976cc1ba4991418ccbfe7222e564f_b.gif","custom146":"pic4.zhimg.com/v2-54fbcf3f0b70a1d064c9a5b72344ed07_b.gif","custom147":"pic1.zhimg.com/v2-be6e40da0a6248aec174bdc3c1c664a4_b.gif","custom148":"pic2.zhimg.com/v2-f21b7824c07e47e66ec99ba2fe876991_b.gif","custom149":"pic1.zhimg.com/v2-6ca6d176e6cfebd885b362ed39a52754_b.gif","custom150":"pic3.zhimg.com/v2-7096fbcaa46d84e196b24539b01844b6_b.gif","custom151":"pic4.zhimg.com/v2-9a7df92798c0e20752aa74e4cc5466cb_b.gif","custom152":"pic2.zhimg.com/v2-cda9ef3135a133d68085247a1b69cffd_b.gif","custom153":"pic3.zhimg.com/v2-a51fc7d88b9dda0574a5ba8825821c82_b.gif","custom154":"pic4.zhimg.com/v2-c1aa44684a2ca95b36ec93a84a35e77f_b.gif","custom155":"pic4.zhimg.com/v2-817888c40f2cc7892e3ac4a151e49ee7_b.gif","custom156":"pic1.zhimg.com/v2-74ff5c91f66eb89e48a5a89e638e73b0_b.gif","custom157":"pic2.zhimg.com/v2-42c967fae56d7b3c86bec6cde9bcd7b1_b.gif","custom158":"pic3.zhimg.com/v2-5e95643fa22d1ab0bdd6320ad5d1db2a_b.gif","custom159":"pic2.zhimg.com/v2-6f859296c99b9b5a6e8e9e2d0e854a29_b.gif","custom160":"pic2.zhimg.com/v2-3bb0c8ed8882c75489df4b1afba1840d_b.gif","custom161":"pic1.zhimg.com/v2-a78dbd510ea52030a1c0cfa4ebe347e0_b.gif","custom162":"pic4.zhimg.com/v2-0ddd383dc74cc15791b197d6c9963c13_b.gif","custom163":"pic2.zhimg.com/v2-2e719166991d7a3b357a4c1161c19871_b.gif","custom164":"pic3.zhimg.com/v2-29478cfa6376f13d4683e6ccf31fd23e_b.gif","custom165":"pic4.zhimg.com/v2-a1c3204e6c1c6d029e7f1e8395b662ef_b.gif","custom166":"pic4.zhimg.com/v2-1e99af51e9a843ae6e7da7922b7d04a7_b.gif","custom167":"pic4.zhimg.com/v2-88316af36de09f6143c6d4b4b9fb48a3_b.gif","custom168":"pic3.zhimg.com/v2-5c774b2be9572a6ff923b378e4378666_b.gif","custom169":"pic4.zhimg.com/v2-80d589d638790b9179bff798661e6f1b_b.gif","custom170":"pic3.zhimg.com/v2-4f5ce0bc5804d9aa39f2ba4fbce84a96_b.gif","custom171":"pic3.zhimg.com/v2-1ee5355dc5729d7d6b506c82db86406e_b.gif","custom172":"pic1.zhimg.com/v2-c67bb502aed043acf52ce446633becc0_b.gif","custom173":"pic3.zhimg.com/v2-28de39defdaf921e7bed9cbcbf747336_b.gif","custom174":"pic4.zhimg.com/v2-482a3fe2af6dc43fdc4577e81595458f_b.gif","custom175":"pic3.zhimg.com/v2-9b14f13670db560aad1277b0084bf71e_b.gif","custom176":"pic4.zhimg.com/v2-67a6c8eecd135664558908cce4c9974f_b.gif","custom177":"pic2.zhimg.com/v2-2fdc05cf86a4fee3932156f35b4d8a09_b.gif","custom178":"pic1.zhimg.com/v2-4904d237ab497f3c7a5b84d3f9139c2c_b.gif","custom179":"pic1.zhimg.com/v2-c8096214f4b41efe48bb88ba3036cd70_b.gif","custom180":"pic2.zhimg.com/v2-69b72648b83645ae38f51e867b042b4d_b.gif","custom181":"pic2.zhimg.com/v2-f6e1da0eb533edcb861666bf7ec6d049_b.gif","custom182":"pic1.zhimg.com/v2-f30dabdd0e98314a99be305fca7c90a4_b.gif","custom183":"pic3.zhimg.com/v2-eb40a03a20678be76b6bded945fa2d76_b.gif","custom184":"pic3.zhimg.com/v2-359317a1b9e58922e645ff0d4d1c312e_b.gif","custom185":"pic3.zhimg.com/v2-635191a768940f8bcf7bb25d8e5e0bde_b.gif","custom186":"pic1.zhimg.com/v2-7bdb13ca8a4812dfdf91ea77d2c369a4_b.gif"},
+      enableQQ: true,
+      path: window.location.pathname,
+      master: 'https://plushine.cn',  //主题根目录配置文件获取博主地址
+      friends: friends,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail,link'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign({}, initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/gh/xingjiahui/modify@v1.1.0/valine/valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script no-destroy src="https://player.lmih.cn/player/js/player.js" id="myhk" key="158744445072"></script><script no-destroy src="https://cdn.jsdelivr.net/gh/xingjiahui/modify/pace/pace.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config_change',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/log/"]):not([href="/video/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  $('script[data-pjax]').each(function () {
+    $(this).parent().append($(this).remove())
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  if (typeof gtag === 'function') {
+    gtag('config', 'UA-162326632-1', {'page_path': window.location.pathname});
+  }
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (true) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+
+document.addEventListener('pjax:send', function () {
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  $(window).off('scroll')
+
+  //reset readmode
+  $('body').hasClass('read-mode') && $('body').removeClass('read-mode')
+
+})</script></div></body></html>
