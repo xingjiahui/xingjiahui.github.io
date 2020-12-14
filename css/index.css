@@ -1314,8 +1314,6 @@ canvas:not(#ribbon-canvas),
 html {
   height: 100%;
   font-size: 20px;
-  -webkit-filter: grayscale(100%);
-  filter: grayscale(100%);
 }
 body {
   position: relative;
