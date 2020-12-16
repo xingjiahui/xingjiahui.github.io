@@ -1314,6 +1314,9 @@ canvas:not(#ribbon-canvas),
 html {
   height: 100%;
   font-size: 20px;
+/* 全局灰白，南京大屠杀死难者国家公祭日
+  -webkit-filter: grayscale(100%)
+  filter: grayscale(100%) */
 }
 body {
   position: relative;
