@@ -4,7 +4,7 @@
   <url>
     <loc>https://plushine.cn/update/index.html</loc>
     
-    <lastmod>2020-12-14</lastmod>
+    <lastmod>2020-12-16</lastmod>
     
   </url>
   
@@ -410,13 +410,6 @@
   </url>
   
   <url>
-    <loc>https://plushine.cn/tags/%E6%89%93%E8%B5%8F%E7%B3%BB%E7%BB%9F/</loc>
-    <lastmod>2020-12-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://plushine.cn/tags/CD%E9%A9%B1%E5%8A%A8%E5%99%A8/</loc>
     <lastmod>2020-12-16</lastmod>
     <changefreq>daily</changefreq>
@@ -424,7 +417,21 @@
   </url>
   
   <url>
+    <loc>https://plushine.cn/tags/%E6%89%93%E8%B5%8F%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2020-12-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://plushine.cn/tags/Chrome%E9%97%AA%E9%BB%91%E5%B1%8F/</loc>
+    <lastmod>2020-12-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://plushine.cn/tags/python%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2020-12-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -480,7 +487,7 @@
   </url>
   
   <url>
-    <loc>https://plushine.cn/tags/python%E5%9F%BA%E7%A1%80/</loc>
+    <loc>https://plushine.cn/tags/WebSSH/</loc>
     <lastmod>2020-12-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -495,13 +502,6 @@
   
   <url>
     <loc>https://plushine.cn/tags/%E5%8F%88%E6%8B%8D%E4%BA%91/</loc>
-    <lastmod>2020-12-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://plushine.cn/tags/WebSSH/</loc>
     <lastmod>2020-12-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -552,14 +552,14 @@
   </url>
   
   <url>
-    <loc>https://plushine.cn/categories/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/%E4%BD%9C%E4%B8%9A%E4%BA%92%E8%AF%84-python/</loc>
+    <loc>https://plushine.cn/categories/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/%E5%A4%A9%E6%B0%94%E6%8E%A8%E9%80%81-python/</loc>
     <lastmod>2020-12-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://plushine.cn/categories/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/%E5%A4%A9%E6%B0%94%E6%8E%A8%E9%80%81-python/</loc>
+    <loc>https://plushine.cn/categories/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/%E4%BD%9C%E4%B8%9A%E4%BA%92%E8%AF%84-python/</loc>
     <lastmod>2020-12-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -573,7 +573,7 @@
   </url>
   
   <url>
-    <loc>https://plushine.cn/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/linux/</loc>
+    <loc>https://plushine.cn/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/python/</loc>
     <lastmod>2020-12-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -594,7 +594,7 @@
   </url>
   
   <url>
-    <loc>https://plushine.cn/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/python/</loc>
+    <loc>https://plushine.cn/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/linux/</loc>
     <lastmod>2020-12-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -615,13 +615,6 @@
   </url>
   
   <url>
-    <loc>https://plushine.cn/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E6%89%93%E8%B5%8F%E7%B3%BB%E7%BB%9F/</loc>
-    <lastmod>2020-12-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://plushine.cn/categories/%E7%94%B5%E8%84%91%E9%97%AE%E9%A2%98/CD%E9%A9%B1%E5%8A%A8%E5%99%A8/</loc>
     <lastmod>2020-12-16</lastmod>
     <changefreq>daily</changefreq>
@@ -629,7 +622,7 @@
   </url>
   
   <url>
-    <loc>https://plushine.cn/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/CDN/</loc>
+    <loc>https://plushine.cn/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E6%89%93%E8%B5%8F%E7%B3%BB%E7%BB%9F/</loc>
     <lastmod>2020-12-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -637,6 +630,13 @@
   
   <url>
     <loc>https://plushine.cn/categories/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</loc>
+    <lastmod>2020-12-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://plushine.cn/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/CDN/</loc>
     <lastmod>2020-12-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
